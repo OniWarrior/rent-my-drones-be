@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/OniWarrior/rent-my-drones-be/issues"
   },
-  "homepage": "https://github.com/OniWarrior/rent-my-drones-be#readme"
+  "homepage": "https://github.com/OniWarrior/rent-my-drones-be#readme",
+  "dependencies": {
+    "helmet": "^4.6.0"
+  }
 }
