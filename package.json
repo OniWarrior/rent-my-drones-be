@@ -1,0 +1,20 @@
+{
+  "name": "rent-my-drones-be",
+  "version": "1.0.0",
+  "description": "This is going to be the back end to the rent my drones app I'm creating.\r I'll make sure to have proper documentation for this project.\r I also want to be clear that this entire project is mainly to hone my front end and back end skills. This app will not be put\r to market.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OniWarrior/rent-my-drones-be.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OniWarrior/rent-my-drones-be/issues"
+  },
+  "homepage": "https://github.com/OniWarrior/rent-my-drones-be#readme"
+}
