@@ -22,3 +22,9 @@ async function findById(id){
                           .first()
     return account
 }
+
+module.exports={
+    findById,
+    findByToken,
+    addUser
+}
