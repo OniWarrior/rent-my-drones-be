@@ -6,7 +6,7 @@ const helmet = require('helmet')
 const {restricted} = require('../api/auth/auth-middleware')
 
 const authRouter = require('../api/auth/auth-router')
-const usersRouter = require('../api/users/user-router')
+const userRouter = require('../api/users/user-router')
 
 const server = express()
 
@@ -14,3 +14,8 @@ server.use(express.json())
 server.use(helmet())
 server.use(cors())
 server.use(cookieParser())
+
+server.use('/api/auth',authRouter)
+server.use('/api/users',userRouter,restricted)
+
+module.exports = server
