@@ -15,3 +15,10 @@ function addUser(user){
            .insert(user)
 }
 
+async function findById(id){
+    const account = await db('users')
+                          .returning(['user_id','username','password'])
+                          .where('user_id',id)
+                          .first()
+    return account
+}
