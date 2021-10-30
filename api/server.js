@@ -6,7 +6,7 @@ const helmet = require('helmet')
 const {restricted} = require('../api/auth/auth-middleware')
 
 const authRouter = require('../api/auth/auth-router')
-const userRouter = require('../api/users/user-router')
+const userRouter = require('./users/user-router')
 
 const server = express()
 
