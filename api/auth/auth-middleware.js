@@ -61,3 +61,17 @@ const checkUsernameFree=(req,res,next)=>{
     })
 }
 
+// checks whether or not there's a missing or undefined username/password when signing in
+// or registering.
+const checkForMissingUsernamePassword=(req,res,next)=>{
+    const {username,password} = req.body
+
+    if(!username || username==="" ||
+       !password || password ===""){
+           res.status(400).json("Username and password are required")
+    }
+    else{
+        next()
+    }
+}
+
