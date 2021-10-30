@@ -34,5 +34,8 @@ const checkUsernameExists=(req,res,next)=>{
             res.status(401).json("Invalid credentials")
         }
     })
+    .catch(err=>{
+        res.status(500).json(`Server error: ${err.message}`)
+    })
 }
 
