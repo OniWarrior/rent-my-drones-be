@@ -75,3 +75,10 @@ const checkForMissingUsernamePassword=(req,res,next)=>{
     }
 }
 
+module.exports={
+    checkForMissingUsernamePassword,
+    checkUsernameExists,
+    checkUsernameFree,
+    restricted
+}
+
