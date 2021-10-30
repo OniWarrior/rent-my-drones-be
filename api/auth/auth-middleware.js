@@ -19,7 +19,20 @@ const restricted=(req,res,next)=>{
             }
         })
     }
+}
 
+const checkUsernameExists=(req,res,next)=>{
+    const {username} = req.body
 
+    User.findByUsername(username)
+    .then(rows=>{
+        if(rows.length){
+            req.userData = rows[0]
+            next()
+        }
+        else{
+            res.status(401).json("Invalid credentials")
+        }
+    })
 }
 
