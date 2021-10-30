@@ -6,7 +6,11 @@ if (process.env.DATABASE_URL){
   pg.defaults.ssl={rejectUnauthorized:false}
 }
 
-
+const sharedConfig={
+  client:'pg',
+  migration:{directory:''},
+  seeds:{directory:''}
+}
 
 module.exports = {
 
