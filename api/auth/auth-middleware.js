@@ -51,5 +51,8 @@ const checkUsernameFree=(req,res,next)=>{
             next()
         }
     })
+    .catch(err=>{
+        res.status(500).json(`Server error: ${err.message}`)
+    })
 }
 
