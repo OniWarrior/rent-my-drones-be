@@ -9,3 +9,9 @@ async function findByToken(token){
     return account
 }
 
+function addUser(user){
+    return db('users')
+           .returning(['username','password'])
+           .insert(user)
+}
+
