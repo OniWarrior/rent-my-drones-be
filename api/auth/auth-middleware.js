@@ -2,6 +2,7 @@ const {JWT_SECRET} = require('../secrets/secret')
 const jwt = require('jsonwebtoken')
 const User = require('../users/user-model')
 
+// Verifies json web token in user's authorization header
 const restricted=(req,res,next)=>{
     const token = req.headers.authorization
 
@@ -21,6 +22,8 @@ const restricted=(req,res,next)=>{
     }
 }
 
+
+// checks if the username exists when user is signing in.
 const checkUsernameExists=(req,res,next)=>{
     const {username} = req.body
 
@@ -39,6 +42,8 @@ const checkUsernameExists=(req,res,next)=>{
     })
 }
 
+
+// checks if username is available when registering new account.
 const checkUsernameFree=(req,res,next)=>{
     const {username} = req.body
 
