@@ -39,3 +39,17 @@ const checkUsernameExists=(req,res,next)=>{
     })
 }
 
+const checkUsernameFree=(req,res,next)=>{
+    const {username} = req.body
+
+    User.findByUsername(username)
+    .then(rows=>{
+        if(rows.username){
+            res.status(422).json("Username already taken")
+        }
+        else{
+            next()
+        }
+    })
+}
+
