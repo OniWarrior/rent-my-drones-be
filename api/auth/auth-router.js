@@ -30,5 +30,7 @@ router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res
 
 router('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
     const{username,password} = req.body
+    User.findByUsername(username)
+    
 
 })
