@@ -9,6 +9,14 @@ async function findByToken(token){
     return account
 }
 
+async function findByUsername(username){
+    const account = await db('users')
+                          .returning(['username','password'])
+                          .where('username',username)
+                          .first()
+    return account
+}
+
 function addUser(user){
     return db('users')
            .returning(['username','password'])
@@ -26,5 +34,7 @@ async function findById(id){
 module.exports={
     findById,
     findByToken,
-    addUser
+    addUser,
+    findByUsername
+
 }
