@@ -10,7 +10,8 @@ const {
 } = require('./auth-middleware')
 const User = require('../users/user-model')
 
-router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
+// path for registering new account
+router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
     try{
         let user = req.body
         let rounds = parseInt(process.env.ROUNDS)
@@ -28,7 +29,9 @@ router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res
 
 })
 
-router('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
+
+// path for login to existing account
+router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
     const{username,password} = req.body
     User.findByUsername(username)
     .then(([user])=>{
