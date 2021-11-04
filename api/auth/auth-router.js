@@ -34,3 +34,18 @@ router('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,nex
     
 
 })
+
+const makeToken =(user)=>{
+    const payload={
+        user_id:user.user_id,
+        username:user.username,
+        password:user.password
+    }
+
+    const option={
+        expiresIn:'1d'
+    }
+
+    return jwt.sign(payload,JWT_SECRET,option)
+
+}
