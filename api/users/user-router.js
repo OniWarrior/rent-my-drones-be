@@ -19,5 +19,8 @@ router('/available',restricted,(req,res,next)=>{
 router('/rented',restricted,(req,res,next)=>{
     const decoded = jwtDecode(req.headers.authorization)
     Drone.rented(decoded.username)
+    .then(success=>{
+        res.status(200).json(success)
+    })
     
 })
