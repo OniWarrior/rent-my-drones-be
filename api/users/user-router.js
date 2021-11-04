@@ -34,5 +34,7 @@ router.put('/available/:drone_id',(req,res,next)=>{
     const decode = jwtDecode(req.headers.authorization)
     const rented = req.body.isRented
 
+    Drone.rentItem(drone_id,decode.username,rented)
+
 })
 
