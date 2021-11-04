@@ -8,3 +8,4 @@ const {
     checkUsernameFree,
     checkForMissingUsernamePassword
 } = require('./auth-middleware')
+const User = require('../users/user-model')
