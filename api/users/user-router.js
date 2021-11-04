@@ -5,5 +5,6 @@ const { restricted } = require('../auth/auth-middleware')
 
 
 router('/available',restricted,(req,res,next)=>{
+    Drone.available()
     
 })
