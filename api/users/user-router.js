@@ -3,7 +3,7 @@ const Drone = require('../drones/drones-model')
 const {default:jwtDecode} = require('jwt-decode')
 const { restricted } = require('../auth/auth-middleware')
 
-
+// retrieve all available drones
 router('/available',restricted,(req,res,next)=>{
     Drone.available()
     .then(success=>{
