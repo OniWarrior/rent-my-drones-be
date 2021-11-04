@@ -30,6 +30,8 @@ router.get('/rented',restricted,(req,res,next)=>{
 
 // path to rent a drone
 router.put('/available/:drone_id',(req,res,next)=>{
-    
+    const{drone_id} = req.params
+    const decode = jwtDecode(req.headers.authorization)
+
 })
 
