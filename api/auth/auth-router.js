@@ -44,6 +44,9 @@ router('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,nex
         }
 
     })
+    .catch(err=>{
+        res.status(500).json(`Server error: ${err.message}`)
+    })
     
 
 })
