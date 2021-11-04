@@ -41,3 +41,9 @@ function rentItem(drone_id,username,rented){
                        'drone_isRented',
                        'renter_username'])
 }
+
+module.exports={
+    available,
+    rented,
+    rentItem
+}
