@@ -49,3 +49,5 @@ const makeToken =(user)=>{
     return jwt.sign(payload,JWT_SECRET,option)
 
 }
+
+module.exports = router
