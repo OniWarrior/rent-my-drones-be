@@ -16,8 +16,12 @@ router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res
         let rounds = parseInt(process.env.ROUNDS)
         let hash = bcrypt.hashSync(user.password,rounds)
         const addedUser = await User.addUser(user)
-    }catch(err){
 
+        if(addedUser){
+            res.status(201).json(addedUser)
+        }
+    }catch(err){
+        res.status(500).json(`Server error: ${err.message}`)
     }
 
 })
