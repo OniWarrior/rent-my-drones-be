@@ -17,5 +17,7 @@ router('/available',restricted,(req,res,next)=>{
 
 // retrieve all drones rented by the user
 router('/rented',restricted,(req,res,next)=>{
+    const decoded = jwtDecode(req.headers.authorization)
+    Drone.rented(decoded.username)
     
 })
