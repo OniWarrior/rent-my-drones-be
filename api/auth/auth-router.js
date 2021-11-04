@@ -27,3 +27,7 @@ router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res
     }
 
 })
+
+router('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
+    
+})
