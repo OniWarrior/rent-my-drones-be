@@ -35,6 +35,9 @@ router.put('/available/:drone_id',(req,res,next)=>{
     const rented = req.body.isRented
 
     Drone.rentItem(drone_id,decode.username,rented)
+    .then(success=>{
+        res.status(200).json(success)
+    })
 
 })
 
