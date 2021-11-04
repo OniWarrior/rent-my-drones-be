@@ -9,3 +9,7 @@ const {
     checkForMissingUsernamePassword
 } = require('./auth-middleware')
 const User = require('../users/user-model')
+
+router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
+    
+})
