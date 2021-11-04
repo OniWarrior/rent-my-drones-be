@@ -31,6 +31,19 @@ router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res
 router('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
     const{username,password} = req.body
     User.findByUsername(username)
+    .then(([user])=>{
+        if(user && bcrypt.compareSync(password,user.password)){
+            const token = makeToken(user)
+
+            res.status(200)
+            .cookie('token',token)
+            .json({
+                message: `welcome back ${user.username}`,
+                token
+            })
+        }
+
+    })
     
 
 })
