@@ -38,6 +38,9 @@ router.put('/available/:drone_id',(req,res,next)=>{
     .then(success=>{
         res.status(200).json(success)
     })
+    .catch(err=>{
+        res.status(500).json(`Server error: ${err.message}`)
+    })
 
 })
 
