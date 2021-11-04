@@ -25,3 +25,19 @@ function rented(renter_username){
             .orderBy('drone_id')
 
 }
+
+function rentItem(drone_id,username,rented){
+    return db('drones')
+           .update({
+               drone_isRented:rented,
+               renter_username:username
+           })
+           .where('drone_id',drone_id)
+           .returning(['drone_id',
+                       'drone_name',
+                       'drone_description',
+                       'drone_cost',
+                       'drone_image',
+                       'drone_isRented',
+                       'renter_username'])
+}
