@@ -13,6 +13,7 @@ const User = require('../users/user-model')
 router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
     try{
         let user = req.body
+        let rounds = parseInt(process.env.ROUNDS)
 
     }catch(err){
 
