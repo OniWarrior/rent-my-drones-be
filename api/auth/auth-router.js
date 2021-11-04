@@ -11,5 +11,11 @@ const {
 const User = require('../users/user-model')
 
 router('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
-    
+    try{
+        let user = req.body
+
+    }catch(err){
+
+    }
+
 })
