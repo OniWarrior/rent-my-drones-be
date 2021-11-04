@@ -10,6 +10,7 @@ const {
 } = require('./auth-middleware')
 const User = require('../users/user-model')
 
+// path for registering new account
 router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
     try{
         let user = req.body
@@ -28,6 +29,8 @@ router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(re
 
 })
 
+
+// path for login to existing account
 router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
     const{username,password} = req.body
     User.findByUsername(username)
