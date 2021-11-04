@@ -44,3 +44,8 @@ router.put('/available/:drone_id',(req,res,next)=>{
 
 })
 
+//path to unrent an item
+router.put('/rented/:drone_id',(req,res,next)=>{
+    
+})
+
