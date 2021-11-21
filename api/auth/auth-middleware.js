@@ -5,7 +5,7 @@ const User = require('../users/user-model')
 // Verifies json web token in user's authorization header
 const restricted=(req,res,next)=>{
     const token = req.headers.authorization
-
+    console.log(JWT_SECRET)
     if(!token){
         res.status(401).json("Token required")
     }
