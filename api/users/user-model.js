@@ -18,7 +18,9 @@ async function findByUsername(username){
 }
 
 async function findByUsernameAndPassword(username,password){
-    
+    const account = await db('users')
+                          .returning(['username','password'])
+                          .where({username:username,password:password})
 }
 
 function addUser(user){
