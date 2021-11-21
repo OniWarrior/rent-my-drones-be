@@ -31,7 +31,7 @@ router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(re
 // path for login to existing account
 router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
     const{username,password} = req.body
-    User.findByUsername(username)
+    User.findByUsernameAndPassword(username,password)
     .then(([user])=>{
         if(user && bcrypt.compareSync(password,user.password)){
             const token = makeToken(user)
