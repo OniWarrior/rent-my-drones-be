@@ -31,7 +31,7 @@ router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(re
 // path for login to existing account
 router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
     const{username,password} = req.body
-    User.findByUsernameAndPassword(username,password)
+    User.findByUsername(username)
     .then(([user])=>{
         if(user && bcrypt.compareSync(password,user.password)){
             const token = makeToken(user)
@@ -42,6 +42,9 @@ router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,re
                 message: `welcome back ${user.username}`,
                 token
             })
+        }
+        else{
+            res.status(401).json('Invalid username/password')
         }
 
     })
