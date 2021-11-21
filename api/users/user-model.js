@@ -13,7 +13,7 @@ async function findByUsername(username){
     const account = await db('users')
                           .returning(['username','password'])
                           .where('username',username)
-                          .first()
+                          
     return account
 }
 
