@@ -55,6 +55,7 @@ router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,re
 
 })
 
+// create token after successful login
 const makeToken =(user)=>{
     const payload={
         user_id:user.user_id,
