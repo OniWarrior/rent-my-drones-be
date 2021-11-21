@@ -28,8 +28,7 @@ async function findById(id){
 }
 
 module.exports={
-    findById,
-    findByToken,
+    findById,    
     addUser,
     findByUsername
 }
