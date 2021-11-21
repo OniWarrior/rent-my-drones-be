@@ -12,8 +12,8 @@ const User = require('../users/user-model')
 router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
     try{
         let user = req.body
-        let rounds = parseInt(process.env.ROUNDS)
-        let hash = bcrypt.hashSync(user.password,rounds)
+        const rounds = parseInt(process.env.ROUNDS)
+        const hash = bcrypt.hashSync(user.password,rounds)
         user.password = hash
 
         const addedUser = await User.addUser(user)
