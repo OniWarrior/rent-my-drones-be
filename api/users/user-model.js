@@ -17,6 +17,10 @@ async function findByUsername(username){
     return account
 }
 
+async function findByUsernameAndPassword(username,password){
+    
+}
+
 function addUser(user){
     return db('users')
            .returning(['username','password'])
