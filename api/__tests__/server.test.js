@@ -161,3 +161,6 @@ describe('[PUT] /available/:id',()=>{
     })
 expect(resFail.status).toBe(500)
 })
+
+
+// Integration test for unrenting drone
