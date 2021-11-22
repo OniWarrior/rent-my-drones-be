@@ -29,5 +29,8 @@ describe('[POST] /Signup',()=>{
                       })
         expect(res.status).toBe(201)
     })
+    it('returns a status of 400 to indicate failure of request',async ()=>{
+        
+    })
     
 })
