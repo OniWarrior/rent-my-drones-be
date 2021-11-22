@@ -128,3 +128,5 @@ describe('[GET] /rented',()=>{
     expect(res.status).toBe(200)
 
 })
+
+// Integration test for renting a drone
