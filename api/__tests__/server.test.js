@@ -40,3 +40,5 @@ describe('[POST] /Signup',()=>{
     })
     
 })
+
+// integrations tests for login request
