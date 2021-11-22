@@ -43,5 +43,7 @@ describe('[POST] /Signup',()=>{
 
 // integrations tests for login request
 describe('[POST] /Login',()=>{
-    
+    it('returns a status 200 login successful',async ()=>{
+        
+    })
 })
