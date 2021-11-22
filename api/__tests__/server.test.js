@@ -78,3 +78,6 @@ describe('[POST] /Login',()=>{
         expect(res.status).toBe(401)
     })
 })
+
+
+// Integration tests for available get request
