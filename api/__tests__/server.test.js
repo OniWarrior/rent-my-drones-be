@@ -107,5 +107,13 @@ describe('[GET] /available',()=>{
 
 //integration test for rented get request
 describe('[GET] /rented',()=>{
-    
+    const createUser =  await request(server)
+        .post('/Signup')
+        .send({
+            username:'hello@gmail.com',
+            password:'yellow1234'
+         })
+        expect(createUser.status).toBe(201)
+
+
 })
