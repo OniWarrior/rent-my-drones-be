@@ -8,7 +8,7 @@ beforeAll(async()=>{
     await db.migrate.latest()
 })
 
-beforeEach(()=>{
+beforeEach(async()=>{
     await db('drones').truncate()
     await db('users').truncate()
     await db.seed.run()
