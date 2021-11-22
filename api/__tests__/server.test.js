@@ -83,6 +83,13 @@ describe('[POST] /Login',()=>{
 // Integration tests for available get request
 describe('[GET] /available',()=>{
     it('returns 200 upon successful retrieval',async ()=>{
+        const createUser =  await request(server)
+        .post('/Signup')
+        .send({
+            username:'hello@gmail.com',
+            password:'yellow1234'
+         })
+        expect(createUser.status).toBe(201)
         const res = await request(server)
                     .get('/available')        
         expect(res.status).toBe(200)
