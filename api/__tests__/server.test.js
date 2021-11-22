@@ -130,3 +130,6 @@ describe('[GET] /rented',()=>{
 })
 
 // Integration test for renting a drone
+describe('[PUT] /available/:id',()=>{
+    
+})
