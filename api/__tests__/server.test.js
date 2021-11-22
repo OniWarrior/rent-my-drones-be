@@ -7,3 +7,7 @@ beforeAll(()=>{
     await db.migrate.rollback()
     await db.migrate.latest()
 })
+
+beforeEach(()=>{
+    await db('drones').truncate()
+})
