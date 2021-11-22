@@ -85,6 +85,6 @@ describe('[GET] /available',()=>{
     it('returns 200 upon successful retrieval',async ()=>{
         const res = await request(server)
                     .get('/available')        
-
+        expect(res.status).toBe(200)
     })
 })
