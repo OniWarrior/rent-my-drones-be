@@ -153,4 +153,11 @@ describe('[PUT] /available/:id',()=>{
             isRented:true
         })
     expect(res.status).toBe(200)
+
+    const resFail = await request(server)
+    .put('/available/1')
+    send({
+        renter_username:"llaflefefe"
+    })
+expect(resFail.status).toBe(500)
 })
