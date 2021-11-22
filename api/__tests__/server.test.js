@@ -228,6 +228,10 @@ describe('[PUT] /rented/:id',()=>{
         })
        expect(res.status).toBe(200)
     })
+
+    it('returns 500 after failing',async ()=>{
+        
+    })
     
        
 })
