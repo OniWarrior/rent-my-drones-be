@@ -106,3 +106,6 @@ describe('[GET] /available',()=>{
 })
 
 //integration test for rented get request
+describe('[GET] /rented',()=>{
+    
+})
