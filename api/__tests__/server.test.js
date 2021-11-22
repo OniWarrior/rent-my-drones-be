@@ -113,7 +113,7 @@ describe('[GET] /rented',()=>{
             username:'hello@gmail.com',
             password:'yellow1234'
          })
-        expect(createUser.status).toBe(201)
+    expect(createUser.status).toBe(201)
     
     const login = await request(server)
         .post('/Login')
@@ -121,7 +121,10 @@ describe('[GET] /rented',()=>{
             username:"hello@gmail.com",
             password:"yellow1234"
         })
-        expect(login.status).toBe(200)
-      
+    expect(login.status).toBe(200)
+    
+    const res = await request(server)
+        .get('/rented')
+    expect(res.status).toBe(200)
 
 })
