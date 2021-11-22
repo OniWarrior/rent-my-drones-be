@@ -131,5 +131,11 @@ describe('[GET] /rented',()=>{
 
 // Integration test for renting a drone
 describe('[PUT] /available/:id',()=>{
-    
+    const createUser =  await request(server)
+        .post('/Signup')
+        .send({
+            username:'hello@gmail.com',
+            password:'yellow1234'
+         })
+    expect(createUser.status).toBe(201)
 })
