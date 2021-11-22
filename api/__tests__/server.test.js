@@ -140,10 +140,17 @@ describe('[PUT] /available/:id',()=>{
     expect(createUser.status).toBe(201)
 
     const login = await request(server)
-    .post('/Login')
-    .send({
+       .post('/Login')
+       .send({
         username:"hello@gmail.com",
         password:"yellow1234"
-    })
-expect(login.status).toBe(200)
+       })
+    expect(login.status).toBe(200)
+
+    const res = await request(server)
+        .put('/available/1')
+        send({
+            isRented:true
+        })
+    expect(res.status).toBe(200)
 })
