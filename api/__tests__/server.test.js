@@ -230,7 +230,36 @@ describe('[PUT] /rented/:id',()=>{
     })
 
     it('returns 500 after failing',async ()=>{
-        
+        const createUser =  await request(server)
+        .post('/Signup')
+        .send({
+            username:'hello@gmail.com',
+            password:'yellow1234'
+         })
+        expect(createUser.status).toBe(201)
+    
+        const login = await request(server)
+       .post('/Login')
+       .send({
+         username:"hello@gmail.com",
+         password:"yellow1234"
+        })
+        expect(login.status).toBe(200)
+    
+       const rentDrone = await request(server)
+            .put('/available/1')
+            .send({
+                isRented:true
+            })
+        expect(rentDrone.status).toBe(200)
+    
+        const res = await request(server)
+        .put('/rented/1')
+        .send({
+            isRented:false,
+            renter_username:'fdsfsdfdsfds'
+        })
+       expect(res.status).toBe(500)
     })
     
        
