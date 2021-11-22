@@ -149,14 +149,14 @@ describe('[PUT] /available/:id',()=>{
 
     const res = await request(server)
         .put('/available/1')
-        send({
+        .send({
             isRented:true
         })
     expect(res.status).toBe(200)
 
     const resFail = await request(server)
     .put('/available/1')
-    send({
+    .send({
         renter_username:"llaflefefe"
     })
 expect(resFail.status).toBe(500)
@@ -164,7 +164,7 @@ expect(resFail.status).toBe(500)
 
 
 // Integration test for unrenting drone
-describe('[PUT] /renting/:id',()=>{
+describe('[PUT] /rented/:id',()=>{
     const createUser =  await request(server)
     .post('/Signup')
     .send({
@@ -174,10 +174,25 @@ describe('[PUT] /renting/:id',()=>{
 expect(createUser.status).toBe(201)
 
 const login = await request(server)
-.post('/Login')
-.send({
- username:"hello@gmail.com",
- password:"yellow1234"
-})
+   .post('/Login')
+   .send({
+     username:"hello@gmail.com",
+     password:"yellow1234"
+    })
 expect(login.status).toBe(200)
+
+const rentDrone = await request(server)
+        .put('/available/1')
+        .send({
+            isRented:true
+        })
+    expect(rentDrone.status).toBe(200)
+
+const res = await request(server)
+    .put('/rented/1')
+    .send({
+        isRented:false
+    })
+   expect(res.status).toBe(200)
+       
 })
