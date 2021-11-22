@@ -44,6 +44,11 @@ describe('[POST] /Signup',()=>{
 // integrations tests for login request
 describe('[POST] /Login',()=>{
     it('returns a status 200 login successful',async ()=>{
-        
+        const res = await request(server)
+                    .post('/Login')
+                    .send({
+                        username:"hello@gmail.com",
+                        password:"yellow1234"
+                    })
     })
 })
