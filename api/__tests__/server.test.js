@@ -81,3 +81,6 @@ describe('[POST] /Login',()=>{
 
 
 // Integration tests for available get request
+describe('[GET] /available',()=>{
+    
+})
