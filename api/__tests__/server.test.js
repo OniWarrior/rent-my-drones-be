@@ -10,4 +10,5 @@ beforeAll(()=>{
 
 beforeEach(()=>{
     await db('drones').truncate()
+    await db('users').truncate()
 })
