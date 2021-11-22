@@ -30,7 +30,12 @@ describe('[POST] /Signup',()=>{
         expect(res.status).toBe(201)
     })
     it('returns a status of 400 to indicate failure of request',async ()=>{
-        
+        const res = await request(server)
+                    .post('/Signup')
+                    .send({
+                        username:"",
+                        password:""
+                    })
     })
     
 })
