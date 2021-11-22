@@ -27,6 +27,7 @@ describe('[POST] /Signup',()=>{
                          username:'hello@gmail.com',
                          password:'yellow123456ghsty'
                       })
+        expect(res.status).toBe(201)
     })
     
 })
