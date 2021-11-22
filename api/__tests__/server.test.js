@@ -83,6 +83,8 @@ describe('[POST] /Login',()=>{
 // Integration tests for available get request
 describe('[GET] /available',()=>{
     it('returns 200 upon successful retrieval',async ()=>{
-        
+        const res = await request(server)
+                    .get('/available')        
+
     })
 })
