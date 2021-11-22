@@ -104,3 +104,5 @@ describe('[GET] /available',()=>{
         expect(res.status).toBe(200)
     })
 })
+
+//integration test for rented get request
