@@ -107,25 +107,28 @@ describe('[GET] /available',()=>{
 
 //integration test for rented get request
 describe('[GET] /rented',()=>{
-    const createUser =  await request(server)
+    it('returns 200 after completing',async ()=>{
+        const createUser =  await request(server)
         .post('/Signup')
         .send({
             username:'hello@gmail.com',
             password:'yellow1234'
          })
-    expect(createUser.status).toBe(201)
+       expect(createUser.status).toBe(201)
     
-    const login = await request(server)
+       const login = await request(server)
         .post('/Login')
         .send({
             username:"hello@gmail.com",
             password:"yellow1234"
         })
-    expect(login.status).toBe(200)
+       expect(login.status).toBe(200)
     
-    const res = await request(server)
+      const res = await request(server)
         .get('/rented')
-    expect(res.status).toBe(200)
+       expect(res.status).toBe(200)
+    })
+    
 
 })
 
