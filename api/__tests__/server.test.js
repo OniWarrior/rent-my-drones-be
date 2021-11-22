@@ -36,6 +36,7 @@ describe('[POST] /Signup',()=>{
                         username:"",
                         password:""
                     })
+        expect(res.status).toBe(400)
     })
     
 })
