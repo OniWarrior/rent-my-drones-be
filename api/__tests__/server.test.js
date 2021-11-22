@@ -50,5 +50,6 @@ describe('[POST] /Login',()=>{
                         username:"hello@gmail.com",
                         password:"yellow1234"
                     })
+        expect(res.status).toBe(200)
     })
 })
