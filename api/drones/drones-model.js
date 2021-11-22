@@ -47,7 +47,7 @@ function returnItem(drone_id,available,rented){
     return db('drones')
            .update({
                drone_isRented:rented,  
-               renter_username:available             
+               renter_username:available          
            })
            .where('drone_id',drone_id)
            .returning(['drone_id',
