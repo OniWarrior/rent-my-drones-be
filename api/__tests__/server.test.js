@@ -13,3 +13,7 @@ beforeEach(()=>{
     await db('users').truncate()
     await db.seed.run()
 })
+
+afterAll(()=>{
+    await db.destroy()
+})
