@@ -61,6 +61,12 @@ describe('[POST] /Login',()=>{
     })
 
     it('returns 401 when invalid credentials are entered',async ()=>{
-        
+        const createUser =  await request(server)
+        .post('/Signup')
+        .send({
+            username:'hello@gmail.com',
+            password:'yellow1234'
+         })
+        expect(createUser.status).toBe(201)
     })
 })
