@@ -134,35 +134,64 @@ describe('[GET] /rented',()=>{
 
 // Integration test for renting a drone
 describe('[PUT] /available/:id',()=>{
-    const createUser =  await request(server)
+    it('returns 200 after completing',async ()=>{
+        const createUser =  await request(server)
         .post('/Signup')
         .send({
             username:'hello@gmail.com',
             password:'yellow1234'
          })
-    expect(createUser.status).toBe(201)
+        expect(createUser.status).toBe(201)
 
-    const login = await request(server)
-       .post('/Login')
-       .send({
-        username:"hello@gmail.com",
-        password:"yellow1234"
-       })
-    expect(login.status).toBe(200)
+        const login = await request(server)
+          .post('/Login')
+          .send({
+              username:"hello@gmail.com",
+              password:"yellow1234"
+           })
+        expect(login.status).toBe(200)
 
-    const res = await request(server)
-        .put('/available/1')
-        .send({
-            isRented:true
-        })
-    expect(res.status).toBe(200)
-
-    const resFail = await request(server)
-    .put('/available/1')
-    .send({
-        renter_username:"llaflefefe"
+        const res = await request(server)
+            .put('/available/1')
+           .send({
+              isRented:true
+           })
+        expect(res.status).toBe(200)
     })
-expect(resFail.status).toBe(500)
+
+    it('returns 500 after error',async ()=>{
+        const createUser =  await request(server)
+                            .post('/Signup')
+                            .send({
+                                username:'hello@gmail.com',
+                                password:'yellow1234'
+                            })
+        expect(createUser.status).toBe(201)
+
+        const login = await request(server)
+                      .post('/Login')
+                      .send({
+                          username:"hello@gmail.com",
+                          password:"yellow1234"
+                       })
+        expect(login.status).toBe(200)
+
+         const res = await request(server)
+                      .put('/available/1')
+                      .send({
+                         isRented:true
+                       })
+        expect(res.status).toBe(200)
+
+        const resFail = await request(server)
+                       .put('/available/1')
+                       .send({
+                         renter_username:"llaflefefe"
+                        })
+        expect(resFail.status).toBe(500)
+    
+    })
+   
 })
 
 
