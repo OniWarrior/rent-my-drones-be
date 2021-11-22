@@ -68,5 +68,12 @@ describe('[POST] /Login',()=>{
             password:'yellow1234'
          })
         expect(createUser.status).toBe(201)
+
+        const res = await request(server)
+                    .post('/Login')
+                    .send({
+                        username:'hello@gmail.com',
+                        password:'yello'
+                    })
     })
 })
