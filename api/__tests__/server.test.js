@@ -1,6 +1,6 @@
 const request = require('supertest')
 const server = require('../server')
-const db = require('../data/dbConfig')
+const db = require('../data/testdbConfig')
 
 // start with a fresh unaltered db before doing main tests
 beforeAll(async()=>{
