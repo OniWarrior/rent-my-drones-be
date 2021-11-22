@@ -21,7 +21,12 @@ afterAll(async ()=>{
 // tests for signup post request
 describe('[POST] /Signup',()=>{
     it('returns a status of 201 Created',async ()=>{
-        
+        const res =  await request(server)
+                     .post('/Signup')
+                     .send({
+                         username:'hello@gmail.com',
+                         password:'yellow123456ghsty'
+                      })
     })
     
 })
