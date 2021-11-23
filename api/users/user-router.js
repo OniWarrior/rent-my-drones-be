@@ -48,7 +48,7 @@ router.put('/available/:drone_id',(req,res,next)=>{
 router.put('/rented/:drone_id',(req,res,next)=>{
     const{drone_id} = req.params    
     const rented = req.body.isRented
-    const available = 'Item is available for rent'
+    const available = null
 
     Drone.returnItem(drone_id,available,rented)
     .then(success=>{
@@ -59,4 +59,7 @@ router.put('/rented/:drone_id',(req,res,next)=>{
     })
 
 })
+
+
+module.exports = router
 

@@ -1,21 +1,19 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const JWT_SECRET = require('../secrets/secret')
-const { checkUsernameFree } = require('./auth-middleware')
+const {JWT_SECRET} = require('../secrets/secret')
 const {
-    checkUsernameExists,
-    checkUsernameFree,
-    checkForMissingUsernamePassword
-} = require('./auth-middleware')
+    checkUsernameFree,checkUsernameExists,checkForMissingUsernamePassword
+} = require('../auth/auth-middleware')
+
 const User = require('../users/user-model')
 
 // path for registering new account
 router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
     try{
         let user = req.body
-        let rounds = parseInt(process.env.ROUNDS)
-        let hash = bcrypt.hashSync(user.password,rounds)
+        const rounds = parseInt(process.env.ROUNDS)
+        const hash = bcrypt.hashSync(user.password,rounds)
         user.password = hash
 
         const addedUser = await User.addUser(user)
@@ -45,6 +43,9 @@ router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,re
                 token
             })
         }
+        else{
+            res.status(401).json('Invalid username/password')
+        }
 
     })
     .catch(err=>{
@@ -54,6 +55,7 @@ router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,re
 
 })
 
+// create token after successful login
 const makeToken =(user)=>{
     const payload={
         user_id:user.user_id,

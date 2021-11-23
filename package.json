@@ -6,18 +6,21 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "migrate":"knex migrate:latest",
-    "rollback":"knex migrate:rollback",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
     "mup": "knex migrate:up",
-    "mdown":"knex migrate:down",
+    "mdown": "knex migrate:down",
     "seed": "knex seed:run",
-    "resetdb":"npm run rollback && npm run migrate && npm run seed",
+    "resetdb": "npm run rollback && npm run migrate && npm run seed",
     "migrateh": "heroku run knex migrate:latest -a rent-my-drones-be",
     "rollbackh": "heroku run knex migrate:rollback -a rent-my-drones-be",
     "databaseh": "heroku pg:psql -a rent-my-drones-be",
     "seedh": "heroku run knex seed:run -a rent-my-drones-be",
     "deploy": "git push heroku main",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "engines": {
     "node": "16.13.0",
