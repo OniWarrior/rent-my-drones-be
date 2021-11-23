@@ -6,3 +6,8 @@ to market.
 
 # npm i
 Install all packages for dependencies and development
+
+# Testing -- npm run test
+
+Set up local testing database via pgAdmin.
+Then, cd into api and into __tests__. Once in __tests__ enter npm run test in terminal to run tests.
