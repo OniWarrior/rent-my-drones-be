@@ -8,11 +8,7 @@ beforeAll(async()=>{
     await db.migrate.latest()
 })
 
-beforeEach(async()=>{
-    await db('drones').truncate()
-    await db('users').truncate()
-    await db.seed.run()
-})
+
 
 afterAll(async ()=>{
     await db.destroy()
@@ -22,16 +18,17 @@ afterAll(async ()=>{
 describe('[POST] /Signup',()=>{
     it('returns a status of 201 Created',async ()=>{
         const res =  await request(server)
-                     .post('/Signup')
+                     .post('/api/auth/Signup')
                      .send({
                          username:'hello@gmail.com',
                          password:'yellow123456ghsty'
                       })
+        
         expect(res.status).toBe(201)
     })
     it('returns a status of 400 to indicate failure of request',async ()=>{
         const res = await request(server)
-                    .post('/Signup')
+                    .post('/api/auth/Signup')
                     .send({
                         username:"",
                         password:""
@@ -44,33 +41,21 @@ describe('[POST] /Signup',()=>{
 // integrations tests for login request
 describe('[POST] /Login',()=>{
     it('returns a status 200 login successful',async ()=>{
-        const createUser =  await request(server)
-        .post('/Signup')
-        .send({
-            username:'hello@gmail.com',
-            password:'yellow1234'
-         })
-        expect(createUser.status).toBe(201)
+       
         const res = await request(server)
-                    .post('/Login')
+                    .post('/api/auth/Login')
                     .send({
                         username:"hello@gmail.com",
-                        password:"yellow1234"
+                        password:"yellow123456ghsty"
                     })
         expect(res.status).toBe(200)
     })
 
     it('returns 401 when invalid credentials are entered',async ()=>{
-        const createUser =  await request(server)
-        .post('/Signup')
-        .send({
-            username:'hello@gmail.com',
-            password:'yellow1234'
-         })
-        expect(createUser.status).toBe(201)
+      
 
         const res = await request(server)
-                    .post('/Login')
+                    .post('/api/auth/Login')
                     .send({
                         username:'hello@gmail.com',
                         password:'yello'
@@ -82,114 +67,91 @@ describe('[POST] /Login',()=>{
 
 // Integration tests for available get request
 describe('[GET] /available',()=>{
-    it('returns 200 upon successful retrieval',async ()=>{
-        const createUser =  await request(server)
-        .post('/Signup')
-        .send({
-            username:'hello@gmail.com',
-            password:'yellow1234'
-         })
-        expect(createUser.status).toBe(201)
-
+    it('returns 200 upon successful retrieval',async ()=>{    
+        
         const login = await request(server)
-        .post('/Login')
+        .post('/api/auth/Login')
         .send({
             username:"hello@gmail.com",
-            password:"yellow1234"
+            password:"yellow123456ghsty"
         })
-        expect(login.status).toBe(200)
-
-        const res = await request(server)
-                    .get('/available')        
-        expect(res.status).toBe(200)
+        .then((success)=>{
+             let token = success.text.slice(51,332)
+             request(server)
+             .get('/api/users/available')
+             .set("Authorization",token)
+             .then(successCode=>{
+                 expect(successCode.status).toBe(200)
+             })           
+        })        
     })
 })
 
 //integration test for rented get request
 describe('[GET] /rented',()=>{
-    it('returns 200 after completing',async ()=>{
-        const createUser =  await request(server)
-        .post('/Signup')
-        .send({
-            username:'hello@gmail.com',
-            password:'yellow1234'
-         })
-       expect(createUser.status).toBe(201)
-    
-       const login = await request(server)
-        .post('/Login')
+    it('should return 200 after completing',async ()=>{
+        const login = await request(server)
+        .post('/api/auth/Login')
         .send({
             username:"hello@gmail.com",
-            password:"yellow1234"
+            password:"yellow123456ghsty"
         })
-       expect(login.status).toBe(200)
-    
-      const res = await request(server)
-        .get('/rented')
-       expect(res.status).toBe(200)
+        .then((success)=>{
+             let token = success.text.slice(51,332)
+             request(server)
+             .get('/api/users/rented')
+             .set("Authorization",token)
+             .then(successCode=>{
+                 expect(successCode.status).toBe(200)
+             })
+        })        
     })
-    
 
 })
 
 // Integration test for renting a drone
 describe('[PUT] /available/:id',()=>{
     it('returns 200 after completing',async ()=>{
-        const createUser =  await request(server)
-        .post('/Signup')
-        .send({
-            username:'hello@gmail.com',
-            password:'yellow1234'
-         })
-        expect(createUser.status).toBe(201)
-
         const login = await request(server)
-          .post('/Login')
-          .send({
-              username:"hello@gmail.com",
-              password:"yellow1234"
-           })
-        expect(login.status).toBe(200)
-
-        const res = await request(server)
-            .put('/available/1')
-           .send({
-              isRented:true
-           })
-        expect(res.status).toBe(200)
+        .post('/api/auth/Login')
+        .send({
+            username:"hello@gmail.com",
+            password:"yellow123456ghsty"
+        })
+        .then((success)=>{
+             let token = success.text.slice(51,332)
+             request(server)
+             .put('/api/users/available/1')
+             .set("Authorization",token)
+             .send({
+                 isRented:true
+             })
+             .then(successCode=>{
+                 expect(successCode.status).toBe(200)
+             })
+        })        
+                   
+        
     })
 
     it('returns 500 after error',async ()=>{
-        const createUser =  await request(server)
-                            .post('/Signup')
-                            .send({
-                                username:'hello@gmail.com',
-                                password:'yellow1234'
-                            })
-        expect(createUser.status).toBe(201)
-
         const login = await request(server)
-                      .post('/Login')
-                      .send({
-                          username:"hello@gmail.com",
-                          password:"yellow1234"
-                       })
-        expect(login.status).toBe(200)
-
-         const res = await request(server)
-                      .put('/available/1')
-                      .send({
-                         isRented:true
-                       })
-        expect(res.status).toBe(200)
-
-        const resFail = await request(server)
-                       .put('/available/1')
-                       .send({
-                         renter_username:"llaflefefe"
-                        })
-        expect(resFail.status).toBe(500)
-    
+        .post('/api/auth/Login')
+        .send({
+            username:"hello@gmail.com",
+            password:"yellow123456ghsty"
+        })
+        .then((success)=>{
+             let token = success.text.slice(51,332)
+             request(server)
+             .put('/api/users/available/1')             
+             .send({
+                 isRented:true
+             })
+             .then(successCode=>{
+                 expect(successCode.status).toBe(500)
+             })
+        })        
     })
    
 })
@@ -198,68 +160,63 @@ describe('[PUT] /available/:id',()=>{
 // Integration test for unrenting drone
 describe('[PUT] /rented/:id',()=>{
     it('returns 200',async ()=>{
-        const createUser =  await request(server)
-        .post('/Signup')
-        .send({
-            username:'hello@gmail.com',
-            password:'yellow1234'
-         })
-        expect(createUser.status).toBe(201)
-    
         const login = await request(server)
-       .post('/Login')
-       .send({
-         username:"hello@gmail.com",
-         password:"yellow1234"
-        })
-        expect(login.status).toBe(200)
-    
-       const rentDrone = await request(server)
-            .put('/available/1')
-            .send({
-                isRented:true
-            })
-        expect(rentDrone.status).toBe(200)
-    
-        const res = await request(server)
-        .put('/rented/1')
+        .post('/api/auth/Login')
         .send({
-            isRented:false
+            username:"hello@gmail.com",
+            password:"yellow123456ghsty"
         })
-       expect(res.status).toBe(200)
+        .then((success)=>{
+             let token = success.text.slice(51,332)
+             request(server)
+             .put('/api/users/available/1')
+             .set("Authorization",token)
+             .send({
+                 isRented:true
+             })
+             .then(()=>{
+                 request(server)
+                 .put('/api/users/rented/1')
+                 .set("Authorization",token)
+                 .send({
+                    isRented:false,
+                    renter_username:null
+                 })
+                 .then(successCode=>{
+                     expect(successCode.status).toBe(200)
+                 })
+             })
+        })        
     })
 
     it('returns 500 after failing',async ()=>{
-        const createUser =  await request(server)
-        .post('/Signup')
-        .send({
-            username:'hello@gmail.com',
-            password:'yellow1234'
-         })
-        expect(createUser.status).toBe(201)
-    
         const login = await request(server)
-       .post('/Login')
-       .send({
-         username:"hello@gmail.com",
-         password:"yellow1234"
-        })
-        expect(login.status).toBe(200)
-    
-       const rentDrone = await request(server)
-            .put('/available/1')
-            .send({
-                isRented:true
-            })
-        expect(rentDrone.status).toBe(200)
-    
-        const res = await request(server)
-        .put('/rented/1')
+        .post('/api/auth/Login')
         .send({
-            isRented:false,
-            renter_username:'fdsfsdfdsfds'
+            username:"hello@gmail.com",
+            password:"yellow123456ghsty"
         })
-       expect(res.status).toBe(500)
+        .then((success)=>{
+             let token = success.text.slice(51,332)
+             request(server)
+             .put('/api/users/available/1')
+             .set("Authorization",token)
+             .send({
+                 isRented:true
+             })
+             .then(()=>{
+                 request(server)
+                 .put('/api/users/rented/1')
+                 .set("Authorization",token)
+                 .send({
+                    isRented:false,
+                    renter_username:"fdsfdeedd"
+                 })
+                 .then(successCode=>{
+                     expect(successCode.status).toBe(500)
+                 })
+             })
+        })        
     })
     
        

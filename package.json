@@ -17,7 +17,7 @@
     "databaseh": "heroku pg:psql -a rent-my-drones-be",
     "seedh": "heroku run knex seed:run -a rent-my-drones-be",
     "deploy": "git push heroku main",
-    "test": "cross-env NODE_ENV= testing jest --watchAll --verbose --runInBand"
+    "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand"
   },
   "jest": {
     "testEnvironment": "node"
