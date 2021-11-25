@@ -51,13 +51,14 @@ function returnItem(drone_id,available,rented){
                renter_username:available          
            })
            .where('drone_id',drone_id)
-           .returning(['drone_id',
-                       'drone_name',
-                       'drone_description',
-                       'drone_cost',
-                       'drone_image',
-                       'drone_isRented',
-                       'renter_username'])
+           // Uncomment if testing in postman
+        //    .returning(['drone_id',
+        //                'drone_name',
+        //                'drone_description',
+        //                'drone_cost',
+        //                'drone_image',
+        //                'drone_isRented',
+        //                'renter_username'])
 
 }
 
