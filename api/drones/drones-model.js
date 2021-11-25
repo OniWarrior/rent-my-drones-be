@@ -32,15 +32,14 @@ function rentItem(drone_id,username,rented){
                drone_isRented:rented,
                renter_username:username
            })
-           .where('drone_id',drone_id)
-        // Uncomment if testing in postman.
-        //    .returning(['drone_id',
-        //                'drone_name',
-        //                'drone_description',
-        //                'drone_cost',
-        //                'drone_image',
-        //                'drone_isRented',
-        //                'renter_username'])
+           .where('drone_id',drone_id)        
+           .returning(['drone_id',
+                       'drone_name',
+                       'drone_description',
+                       'drone_cost',
+                       'drone_image',
+                       'drone_isRented',
+                       'renter_username'])
 }
 
 function returnItem(drone_id,available,rented){
@@ -50,15 +49,14 @@ function returnItem(drone_id,available,rented){
                drone_isRented:rented,  
                renter_username:available          
            })
-           .where('drone_id',drone_id)
-           // Uncomment if testing in postman
-        //    .returning(['drone_id',
-        //                'drone_name',
-        //                'drone_description',
-        //                'drone_cost',
-        //                'drone_image',
-        //                'drone_isRented',
-        //                'renter_username'])
+           .where('drone_id',drone_id)          
+           .returning(['drone_id',
+                       'drone_name',
+                       'drone_description',
+                       'drone_cost',
+                       'drone_image',
+                       'drone_isRented',
+                       'renter_username'])
 
 }
 
