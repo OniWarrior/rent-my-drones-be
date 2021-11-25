@@ -47,7 +47,7 @@ router.put('/available/:drone_id',(req,res,next)=>{
 //path to unrent an item
 router.put('/rented/:drone_id',(req,res,next)=>{
     const{drone_id} = req.params    
-    const rented = req.body.isRented
+    const rented = false
     const available = null
 
     Drone.returnItem(drone_id,available,rented)
