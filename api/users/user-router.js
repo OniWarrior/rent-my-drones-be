@@ -32,7 +32,7 @@ router.get('/rented',restricted,(req,res,next)=>{
 router.put('/available/:drone_id',(req,res,next)=>{
     const{drone_id} = req.params
     const decode = jwtDecode(req.headers.authorization)
-    const rented = req.body
+    const rented = true
 
     Drone.rentItem(drone_id,decode.username,rented)
     .then(success=>{
