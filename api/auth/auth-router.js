@@ -1,27 +1,27 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {JWT_SECRET} = require('../secrets/secret')
+const { JWT_SECRET } = require('../secrets/secret')
 const {
-    checkUsernameFree,checkUsernameExists,checkForMissingUsernamePassword
+    checkUsernameFree, checkUsernameExists, checkForMissingUsernamePassword
 } = require('../auth/auth-middleware')
 
 const User = require('../users/user-model')
 
 // path for registering new account
-router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(req,res,next)=>{
-    try{
+router.post('/signup', checkUsernameFree, checkForMissingUsernamePassword, async (req, res, next) => {
+    try {
         let user = req.body
         const rounds = parseInt(process.env.ROUNDS)
-        const hash = bcrypt.hashSync(user.password,rounds)
+        const hash = bcrypt.hashSync(user.password, rounds)
         user.password = hash
 
         const addedUser = await User.addUser(user)
-        
-        if(addedUser){
+
+        if (addedUser) {
             res.status(201).json(addedUser)
         }
-    }catch(err){
+    } catch (err) {
         res.status(500).json(`Server error: ${err.message}`)
     }
 
@@ -29,45 +29,45 @@ router.post('/Signup',checkUsernameFree,checkForMissingUsernamePassword,async(re
 
 
 // path for login to existing account
-router.post('/Login',checkForMissingUsernamePassword,checkUsernameExists,(req,res,next)=>{
-    const{username,password} = req.body
+router.post('/login', checkForMissingUsernamePassword, checkUsernameExists, (req, res, next) => {
+    const { username, password } = req.body
     User.findByUsername(username)
-    .then(([user])=>{
-        if(user && bcrypt.compareSync(password,user.password)){
-            const token = makeToken(user)
+        .then(([user]) => {
+            if (user && bcrypt.compareSync(password, user.password)) {
+                const token = makeToken(user)
 
-            res.status(200)
-            .cookie('token',token)
-            .json({
-                message: `welcome back ${user.username}`,
-                token
-            })
-        }
-        else{
-            res.status(401).json('Invalid username/password')
-        }
+                res.status(200)
+                    .cookie('token', token)
+                    .json({
+                        message: `welcome back ${user.username}`,
+                        token
+                    })
+            }
+            else {
+                res.status(401).json('Invalid username/password')
+            }
 
-    })
-    .catch(err=>{
-        res.status(500).json(`Server error: ${err.message}`)
-    })
-    
+        })
+        .catch(err => {
+            res.status(500).json(`Server error: ${err.message}`)
+        })
+
 
 })
 
 // create token after successful login
-const makeToken =(user)=>{
-    const payload={
-        user_id:user.user_id,
-        username:user.username,
-        password:user.password
+const makeToken = (user) => {
+    const payload = {
+        user_id: user.user_id,
+        username: user.username,
+        password: user.password
     }
 
-    const option={
-        expiresIn:'1d'
+    const option = {
+        expiresIn: '1d'
     }
 
-    return jwt.sign(payload,JWT_SECRET,option)
+    return jwt.sign(payload, JWT_SECRET, option)
 
 }
 
