@@ -25,15 +25,24 @@ router.get('/available', restricted, async (req, res) => {
 })
 
 // retrieve all drones rented by the user
-router.get('/rented', restricted, (req, res, next) => {
-    const decoded = jwtDecode(req.headers.authorization)
-    Drone.rented(decoded.username)
-        .then(success => {
-            res.status(200).json(success)
-        })
-        .catch(err => {
-            res.status(500).json(`Server error: ${err.message}`)
-        })
+router.get('/rented', restricted, async (req, res) => {
+    try {
+        // decode token
+        const decoded = jwtDecode(req.headers.authorization);
+
+        // retrieve the drones rented by user
+        const rented = await Drone.rented(decoded.username);
+
+        //check if the retrieval was successful
+        if (rented) {
+
+            // send success response
+            return res.status(200).json({ rented: rented });
+        }
+
+    } catch (err) {
+        return res.status(500).json({ message: `Server error: ${err.message}` })
+    }
 
 })
 
