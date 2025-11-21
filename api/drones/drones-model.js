@@ -1,66 +1,73 @@
 const db = require('../data/dbConfig')
 
-function available(){
-    return db('drones')
-           .returning(['drone_id',
-                       'drone_name',
-                       'drone_description',
-                       'drone_cost',
-                       'drone_image',
-                       'drone_isRented'])
-            .where('drone_isRented',0)
-            .orderBy('drone_id')
+async function available() {
+    const drones = await db('drones')
+        .returning(['drone_id',
+            'drone_name',
+            'drone_description',
+            'drone_cost',
+            'drone_image',
+            'drone_isRented'])
+        .where('drone_isRented', 0)
+        .orderBy('drone_id')
+
+    return drones
 
 }
 
-function rented(renter_username){
-    return db('drones')
-           .returning(['drone_id',
-                       'drone_name',
-                       'drone_description',
-                       'drone_cost',
-                       'drone_image',
-                       'drone_isRented'])
-            .where('renter_username',renter_username)
-            .orderBy('drone_id')
+async function rented(renter_username) {
+    const drones = await db('drones')
+        .returning(['drone_id',
+            'drone_name',
+            'drone_description',
+            'drone_cost',
+            'drone_image',
+            'drone_isRented'])
+        .where('renter_username', renter_username)
+        .orderBy('drone_id')
+
+    return drones
 
 }
 
-function rentItem(drone_id,username,rented){
-    return db('drones')
-           .update({
-               drone_isRented:rented,
-               renter_username:username
-           })
-           .where('drone_id',drone_id)        
-           .returning(['drone_id',
-                       'drone_name',
-                       'drone_description',
-                       'drone_cost',
-                       'drone_image',
-                       'drone_isRented',
-                       'renter_username'])
+async function rentItem(drone_id, username, rented) {
+    const drone = await db('drones')
+        .update({
+            drone_isRented: rented,
+            renter_username: username
+        })
+        .where('drone_id', drone_id)
+        .returning(['drone_id',
+            'drone_name',
+            'drone_description',
+            'drone_cost',
+            'drone_image',
+            'drone_isRented',
+            'renter_username'])
+
+    return drone
 }
 
-function returnItem(drone_id,available,rented){
+async function returnItem(drone_id, available, rented) {
 
-    return db('drones')
-           .update({
-               drone_isRented:rented,  
-               renter_username:available          
-           })
-           .where('drone_id',drone_id)          
-           .returning(['drone_id',
-                       'drone_name',
-                       'drone_description',
-                       'drone_cost',
-                       'drone_image',
-                       'drone_isRented',
-                       'renter_username'])
+    const drone = await db('drones')
+        .update({
+            drone_isRented: rented,
+            renter_username: available
+        })
+        .where('drone_id', drone_id)
+        .returning(['drone_id',
+            'drone_name',
+            'drone_description',
+            'drone_cost',
+            'drone_image',
+            'drone_isRented',
+            'renter_username'])
+    return drone
 
 }
 
-module.exports={
+module.exports = {
     available,
     rented,
     rentItem,
