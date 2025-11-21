@@ -78,18 +78,34 @@ router.put('/available/:drone_id', async (req, res) => {
 })
 
 //path to unrent an item
-router.put('/rented/:drone_id', (req, res, next) => {
-    const { drone_id } = req.params
-    const rented = false
-    const available = null
+router.put('/rented/:drone_id', async (req, res) => {
 
-    Drone.returnItem(drone_id, available, rented)
-        .then(success => {
-            res.status(200).json(success)
-        })
-        .catch(err => {
-            res.status(500).json(`Server error: ${err.message}`)
-        })
+    try {
+
+        // get drone id
+        const { drone_id } = req.params;
+
+        // temp boolean
+        const rented = false;
+
+        // available is set to ''. this is for the renter username
+        const available = '';
+
+        // update availability of drone
+        const returnItem = await Drone.returnItem(drone_id, available, rented);
+
+        // check if db op is successful
+        if (returnItem) {
+            //send success response
+            return res.status(200).json({ returnItem: returnItem });
+        }
+
+
+    } catch (err) {
+        //send internal error failure response
+        return res.status(500).json({ message: `Server error: ${err.message}` });
+    }
+
 
 })
 
