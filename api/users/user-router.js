@@ -41,25 +41,40 @@ router.get('/rented', restricted, async (req, res) => {
         }
 
     } catch (err) {
+        // send failure internal server response
         return res.status(500).json({ message: `Server error: ${err.message}` })
     }
 
 })
 
 // path to rent a drone
-router.put('/available/:drone_id', (req, res, next) => {
-    const { drone_id } = req.params
-    const decode = jwtDecode(req.headers.authorization)
-    const rented = true
+router.put('/available/:drone_id', async (req, res) => {
 
-    Drone.rentItem(drone_id, decode.username, rented)
-        .then(success => {
-            res.status(200).json(success)
-        })
-        .catch(err => {
-            res.status(500).json(`Server error: ${err.message}`)
-        })
+    try {
 
+        // get the drone id
+        const { drone_id } = req.params;
+
+        // decode token
+        const decode = jwtDecode(req.headers.authorization);
+
+        // temp boolean
+        const rented = true;
+
+        // rent a drone for user
+        const rent = await Drone.rentItem(drone_id, decode.username, rented);
+
+        // check if db op succeeded
+        if (rent) {
+            // send success response
+            return res.status(200).json({ rent: rent });
+        }
+
+    } catch (err) {
+        // send failure internal server response
+        return res.status(500).json({ message: `Server Error: ${err.message}` });
+
+    }
 })
 
 //path to unrent an item
