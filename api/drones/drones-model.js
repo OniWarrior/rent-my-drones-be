@@ -1,7 +1,7 @@
 const db = require('../data/dbConfig')
 
 async function available() {
-    const drones = await db('drones')
+    const drones = await db('Drone')
         .returning(['drone_id',
             'drone_name',
             'drone_description',
@@ -16,7 +16,7 @@ async function available() {
 }
 
 async function rented(renter_username) {
-    const drones = await db('drones')
+    const drones = await db('Drone')
         .returning(['drone_id',
             'drone_name',
             'drone_description',
@@ -31,7 +31,7 @@ async function rented(renter_username) {
 }
 
 async function rentItem(drone_id, username, rented) {
-    const drone = await db('drones')
+    const drone = await db('Drone')
         .update({
             drone_isRented: rented,
             renter_username: username
@@ -50,7 +50,7 @@ async function rentItem(drone_id, username, rented) {
 
 async function returnItem(drone_id, available, rented) {
 
-    const drone = await db('drones')
+    const drone = await db('Drone')
         .update({
             drone_isRented: rented,
             renter_username: available

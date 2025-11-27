@@ -89,7 +89,7 @@ router.put('/rented/:drone_id', async (req, res) => {
         const rented = false;
 
         // available is set to ''. this is for the renter username
-        const available = '';
+        const available = null;
 
         // update availability of drone
         const returnItem = await Drone.returnItem(drone_id, available, rented);
