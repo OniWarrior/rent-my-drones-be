@@ -1,62 +1,111 @@
 const router = require('express').Router()
 const Drone = require('../drones/drones-model')
-const {default:jwtDecode} = require('jwt-decode')
+const { default: jwtDecode } = require('jwt-decode')
 const { restricted } = require('../auth/auth-middleware')
 
 // retrieve all available drones
-router.get('/available',restricted,(req,res,next)=>{
-    Drone.available()
-    .then(success=>{
-        res.status(200).json(success)
-    })
-    .catch(err=>{
-        res.status(500).json(`Server error: ${err.message}`)
-    })
+router.get('/available', restricted, async (req, res) => {
+    try {
 
+        // retrieve all available drones
+        const drones = await Drone.available();
+
+        // check if retrieval was successful
+        if (drones) {
+            // successful return of drones send success response with drones
+            return res.status(200).json({ drones: drones });
+        }
+
+    } catch (err) {
+
+        // send internal error failure response
+        return res.status(500).json({ message: `Server Error: ${err.message}` });
+
+    }
 })
 
 // retrieve all drones rented by the user
-router.get('/rented',restricted,(req,res,next)=>{
-    const decoded = jwtDecode(req.headers.authorization)
-    Drone.rented(decoded.username)
-    .then(success=>{
-        res.status(200).json(success)
-    })
-    .catch(err=>{
-        res.status(500).json(`Server error: ${err.message}`)
-    })
-    
+router.get('/rented', restricted, async (req, res) => {
+    try {
+        // decode token
+        const decoded = jwtDecode(req.headers.authorization);
+
+        // retrieve the drones rented by user
+        const rented = await Drone.rented(decoded.username);
+
+        //check if the retrieval was successful
+        if (rented) {
+
+            // send success response
+            return res.status(200).json({ rented: rented });
+        }
+
+    } catch (err) {
+        // send failure internal server response
+        return res.status(500).json({ message: `Server error: ${err.message}` })
+    }
+
 })
 
 // path to rent a drone
-router.put('/available/:drone_id',(req,res,next)=>{
-    const{drone_id} = req.params
-    const decode = jwtDecode(req.headers.authorization)
-    const rented = true
+router.put('/available/:drone_id', async (req, res) => {
 
-    Drone.rentItem(drone_id,decode.username,rented)
-    .then(success=>{
-        res.status(200).json(success)
-    })
-    .catch(err=>{
-        res.status(500).json(`Server error: ${err.message}`)
-    })
+    try {
 
+        // get the drone id
+        const { drone_id } = req.params;
+
+        // decode token
+        const decode = jwtDecode(req.headers.authorization);
+
+        // temp boolean
+        const rented = true;
+
+        // rent a drone for user
+        const rent = await Drone.rentItem(drone_id, decode.username, rented);
+
+        // check if db op succeeded
+        if (rent) {
+            // send success response
+            return res.status(200).json({ rent: rent });
+        }
+
+    } catch (err) {
+        // send failure internal server response
+        return res.status(500).json({ message: `Server Error: ${err.message}` });
+
+    }
 })
 
 //path to unrent an item
-router.put('/rented/:drone_id',(req,res,next)=>{
-    const{drone_id} = req.params    
-    const rented = false
-    const available = null
+router.put('/rented/:drone_id', async (req, res) => {
 
-    Drone.returnItem(drone_id,available,rented)
-    .then(success=>{
-        res.status(200).json(success)
-    })
-    .catch(err=>{
-        res.status(500).json(`Server error: ${err.message}`)
-    })
+    try {
+
+        // get drone id
+        const { drone_id } = req.params;
+
+        // temp boolean
+        const rented = false;
+
+        // available is set to ''. this is for the renter username
+        const available = null;
+
+        // update availability of drone
+        const returnItem = await Drone.returnItem(drone_id, available, rented);
+
+        // check if db op is successful
+        if (returnItem) {
+            //send success response
+            return res.status(200).json({ returnItem: returnItem });
+        }
+
+
+    } catch (err) {
+        //send internal error failure response
+        return res.status(500).json({ message: `Server error: ${err.message}` });
+    }
+
 
 })
 

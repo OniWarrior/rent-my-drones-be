@@ -1,81 +1,118 @@
-const {JWT_SECRET} = require('../secrets/secret')
+const { JWT_SECRET } = require('../secrets/secret')
 const jwt = require('jsonwebtoken')
 const User = require('../users/user-model')
 
 // Verifies json web token in user's authorization header
-const restricted=(req,res,next)=>{
-    const token = req.headers.authorization
-    
-    if(!token){
-        res.status(401).json("Token required")
+const restricted = async (req, res, next) => {
+
+    try {
+
+        // collect possible token
+        const token = req.headers.authorization;
+
+        // check if there's a token
+        if (token) {
+
+            // verify if the token is a valid jwt
+            jwt.verify(token, JWT_SECRET, (err, decoded) => {
+                // check if there's an error
+                if (err) {
+                    return res.status(401).json({ message: 'Token invalid' });
+                }
+                // no error send to next middleware function
+                else {
+                    req.decodedToken = decoded;
+                    next();
+                }
+            })
+
+        } else {
+            // no token - send failure response.
+            return res.status(401).json({ message: `Token required.` });
+
+        }
+
+    } catch (err) {
+        // internal server error
+        return res.status(500).json({ message: `Server Error: ${err.message}` });
+
     }
-    else{
-        jwt.verify(token,JWT_SECRET,(err,decoded)=>{
-            if(err){
-                res.status(401).json('Token invalid')
-            }
-            else{
-                req.decodedToken = decoded
-                next()
-            }
-        })
-    }
+
 }
 
 
 // checks if the username exists when user is signing in.
-const checkUsernameExists=(req,res,next)=>{
-    const {username} = req.body
+const checkUsernameExists = async (req, res, next) => {
 
-    User.findByUsername(username)
-    .then(rows=>{
-        if(rows.length){
-            req.userData = rows[0]
-            next()
+    try {
+        const { username } = req.body;
+
+        // try to match username profided with an existing user to confirm identity
+        const user = await User.checkIdentityByUsername(username);
+
+        // check if the username was found
+        if (user) {
+            // go to next middleware function
+            next();
         }
-        else{
-            res.status(401).json("Invalid credentials")
+        else {
+            // send failure response invalid creds
+            return res.status(401).json({ message: `Invalid credentials:` });
+
         }
-    })
-    .catch(err=>{
-        res.status(500).json(`Server error: ${err.message}`)
-    })
+
+    } catch (err) {
+
+        // internal server error
+        return res.status(500).json({ message: `Server Error: ${err.message}` });
+
+    }
 }
 
 
 // checks if username is available when registering new account.
-const checkUsernameFree=(req,res,next)=>{
-    const {username} = req.body
+const checkUsernameFree = async (req, res, next) => {
 
-    User.findByUsername(username)
-    .then(rows=>{
-        if(rows.username){
-            res.status(422).json("Username already taken")
+    try {
+        const { username } = req.body;
+
+
+        // try to find user based on provided username
+        const user = await User.checkIdentityByUsername(username);
+
+        // check if the user was found
+        if (!user) {
+            // user not found: username is available
+            next();
+        } else {
+            // if username already in use - failure response
+            return res.status(422).json({ message: `Username already taken` });
+
         }
-        else{
-            next()
-        }
-    })
-    .catch(err=>{
-        res.status(500).json(`Server error: ${err.message}`)
-    })
+
+    } catch (err) {
+
+        // internal server error
+        return res.status(500).json({ message: `Server Error: ${err.message}` });
+
+    }
 }
 
 // checks whether or not there's a missing or undefined username/password when signing in
 // or registering.
-const checkForMissingUsernamePassword=(req,res,next)=>{
-    const {username,password} = req.body
+const checkForMissingUsernamePassword = (req, res, next) => {
+    const { username, password } = req.body
 
-    if(!username || username==="" ||
-       !password || password ===""){
-           res.status(400).json("Username and password are required")
+    if (!username || username === "" ||
+        !password || password === "") {
+        return res.status(400).json({ message: "Username and password are required" });
     }
-    else{
-        next()
+    else {
+        next();
     }
 }
 
-module.exports={
+module.exports = {
     checkForMissingUsernamePassword,
     checkUsernameExists,
     checkUsernameFree,
