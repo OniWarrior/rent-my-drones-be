@@ -16,6 +16,7 @@ async function checkIdentityByEmail(email) {
 
 /*
  * findByEmail: Try to find a user by email
+ *@email: Parameter that is used to find user if they exists
  */
 async function findByEmail(email) {
     const account = await db('User')
@@ -27,10 +28,13 @@ async function findByEmail(email) {
 }
 
 
-
+/*
+ * addUser: Add user to db.
+ * @user: Parameter of user obj that will be added to db
+ */
 async function addUser(user) {
     const addUser = await db('User')
-        .returning(['username', 'password'])
+        .returning(['email', 'password'])
         .insert(user)
     return addUser
 }
