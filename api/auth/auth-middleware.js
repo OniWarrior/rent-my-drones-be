@@ -56,7 +56,8 @@ const restricted = async (req, res, next) => {
 const checkEmailExists = async (req, res, next) => {
 
     try {
-        const { username } = req.body;
+        // email to check
+        const { email } = req.body;
 
         // try to match username profided with an existing user to confirm identity
         const user = await User.checkIdentityByUsername(username);
