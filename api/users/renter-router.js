@@ -3,8 +3,12 @@ const Drone = require('../drones/drones-model')
 const { default: jwtDecode } = require('jwt-decode')
 const { restricted } = require('../auth/auth-middleware')
 
-// retrieve all available drones
-router.get('/available', restricted, async (req, res) => {
+/*
+ * /available : Endpoint that retrieves all available drones for renter
+ *            : or anyone not logged in to the app
+ * 
+ */
+router.get('/available', async (req, res) => {
     try {
 
         // retrieve all available drones
