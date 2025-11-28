@@ -37,7 +37,7 @@ router.get('/rented', restricted, async (req, res) => {
         const decoded = jwtDecode(req.headers.authorization);
 
         // retrieve the drones rented by user
-        const rented = await Drone.rented(decoded.username);
+        const rented = await Drone.rented(decoded.email);
 
         //check if the retrieval was successful
         if (rented) {
