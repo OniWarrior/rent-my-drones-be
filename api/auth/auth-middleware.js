@@ -119,7 +119,7 @@ const checkEmailAvailability = async (req, res, next) => {
 const checkForMissingEmailPassword = (req, res, next) => {
 
     // email and password to be checked.
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     if (!email || email === "" ||
         !password || password === "") {
@@ -134,6 +134,9 @@ const checkForMissingEmailPassword = (req, res, next) => {
  * checkForMissingName: Middleware that checks for null or empty first name and last name
  */
 const checkForMissingName = (req, res, next) => {
+
+    // first name and last name to be checked
+    const { first_name, last_name } = req.body;
 
 }
 
