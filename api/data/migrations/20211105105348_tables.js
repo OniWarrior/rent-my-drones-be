@@ -14,7 +14,13 @@ exports.up = function (knex) {
         })
         .createTable('Renter', renters => {
             renters.increments('renter_id').primary()
+            renters.integer('user_id')
+                .references('user_id')
+                .inTable('User')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE')
         })
+
         .createTable('Drone', drones => {
             drones.increments('drone_id')
             drones.string('drone_name', 128).notNullable()
