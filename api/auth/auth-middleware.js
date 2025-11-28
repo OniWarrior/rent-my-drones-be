@@ -9,7 +9,9 @@ const { JWT_SECRET } = require('../secrets/secret')
 const jwt = require('jsonwebtoken')
 const User = require('../users/user-model')
 
-// Verifies json web token in user's authorization header
+/*
+ * restricted: Middelware that checks the auth header for a valid token
+ */
 const restricted = async (req, res, next) => {
 
     try {
@@ -48,8 +50,10 @@ const restricted = async (req, res, next) => {
 }
 
 
-// checks if the username exists when user is signing in.
-const checkUsernameExists = async (req, res, next) => {
+/*
+ * checkEmailExists: Middleware that checks for an email already in db.
+ * */
+const checkEmailExists = async (req, res, next) => {
 
     try {
         const { username } = req.body;
