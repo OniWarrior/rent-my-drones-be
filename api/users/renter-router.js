@@ -28,7 +28,9 @@ router.get('/available', async (req, res) => {
     }
 })
 
-// retrieve all drones rented by the user
+/*
+ * /rented: Endpoint that retrieves all the currently rented drones of the renter
+ */
 router.get('/rented', restricted, async (req, res) => {
     try {
         // decode token
