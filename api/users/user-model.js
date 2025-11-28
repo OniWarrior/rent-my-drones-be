@@ -20,7 +20,7 @@ async function checkIdentityByEmail(email) {
  */
 async function findByEmail(email) {
     const account = await db('User')
-        .returning(['email', 'password'])
+        .returning(['user_id', 'email', 'password'])
         .where('email', email)
         .first()
 
