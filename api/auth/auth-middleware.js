@@ -119,7 +119,7 @@ const checkEmailAvailability = async (req, res, next) => {
 const checkForMissingEmailPassword = (req, res, next) => {
 
     // email and password to be checked.
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     if (!email || email === "" ||
         !password || password === "") {
@@ -130,10 +130,30 @@ const checkForMissingEmailPassword = (req, res, next) => {
     }
 }
 
+/*
+ * checkForMissingName: Middleware that checks for null or empty first name and last name
+ */
+const checkForMissingName = (req, res, next) => {
+
+    // first name and last name to be checked
+    const { first_name, last_name } = req.body;
+
+    // check if there is missing or empty first and last name
+    if (!first_name || first_name === '' ||
+        !last_name || last_name === '') {
+        return res.status(400).json({ message: "First and last name are required" });
+    }
+    else {
+        next();
+    }
+
+}
+
 module.exports = {
     checkForMissingEmailPassword,
     checkEmailExists,
     checkEmailAvailability,
-    restricted
+    restricted,
+    checkForMissingName
 }
 
