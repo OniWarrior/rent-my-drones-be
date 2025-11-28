@@ -1,8 +1,17 @@
+/*
+ * Author: Stephen Aranda
+ * File  : auth-middleware.js
+ * Desc  : Middleware that checks for a valid token, an available email, if an email already
+ *       : exists, and a missing email and password.
+ * */
+
 const { JWT_SECRET } = require('../secrets/secret')
 const jwt = require('jsonwebtoken')
 const User = require('../users/user-model')
 
-// Verifies json web token in user's authorization header
+/*
+ * restricted: Middelware that checks the auth header for a valid token
+ */
 const restricted = async (req, res, next) => {
 
     try {
@@ -41,14 +50,17 @@ const restricted = async (req, res, next) => {
 }
 
 
-// checks if the username exists when user is signing in.
-const checkUsernameExists = async (req, res, next) => {
+/*
+ * checkEmailExists: Middleware that checks for an email already in db.
+ * */
+const checkEmailExists = async (req, res, next) => {
 
     try {
-        const { username } = req.body;
+        // email to check
+        const { email } = req.body;
 
-        // try to match username profided with an existing user to confirm identity
-        const user = await User.checkIdentityByUsername(username);
+        // try to match email profided with an existing user to confirm identity
+        const user = await User.checkIdentityByEmail(email);
 
         // check if the username was found
         if (user) {
@@ -70,23 +82,26 @@ const checkUsernameExists = async (req, res, next) => {
 }
 
 
-// checks if username is available when registering new account.
-const checkUsernameFree = async (req, res, next) => {
+/*
+ * checkEmailAvailability: Middleware to check if email is available
+ * */
+const checkEmailAvailability = async (req, res, next) => {
 
     try {
-        const { username } = req.body;
+        // email to be checked.
+        const { email } = req.body;
 
 
-        // try to find user based on provided username
-        const user = await User.checkIdentityByUsername(username);
+        // try to find user based on provided email
+        const user = await User.checkIdentityByEmail(email);
 
         // check if the user was found
         if (!user) {
-            // user not found: username is available
+            // user not found: email is available
             next();
         } else {
-            // if username already in use - failure response
-            return res.status(422).json({ message: `Username already taken` });
+            // if email already in use - failure response
+            return res.status(422).json({ message: `Email already in use` });
 
         }
 
@@ -98,14 +113,17 @@ const checkUsernameFree = async (req, res, next) => {
     }
 }
 
-// checks whether or not there's a missing or undefined username/password when signing in
-// or registering.
-const checkForMissingUsernamePassword = (req, res, next) => {
-    const { username, password } = req.body
+/*
+ * checkForMissingEmailPassword: middleware that checks for null or empty email/password
+ * */
+const checkForMissingEmailPassword = (req, res, next) => {
 
-    if (!username || username === "" ||
+    // email and password to be checked.
+    const { email, password } = req.body
+
+    if (!email || email === "" ||
         !password || password === "") {
-        return res.status(400).json({ message: "Username and password are required" });
+        return res.status(400).json({ message: "Email and password are required" });
     }
     else {
         next();
@@ -113,9 +131,9 @@ const checkForMissingUsernamePassword = (req, res, next) => {
 }
 
 module.exports = {
-    checkForMissingUsernamePassword,
-    checkUsernameExists,
-    checkUsernameFree,
+    checkForMissingEmailPassword,
+    checkEmailExists,
+    checkEmailAvailability,
     restricted
 }
 

@@ -1,11 +1,14 @@
 const db = require('../data/dbConfig')
 
 
-
-async function checkIdentityByUsername(username) {
+/*
+ * checkIdentityByEmail: Try to find a user with the provided email param
+ * @email: parameter that is going to be used to find a user.
+ */
+async function checkIdentityByEmail(email) {
     const account = await db('User')
-        .returning(['username'])
-        .where('username', username)
+        .returning(['email'])
+        .where('email', email)
         .first()
 
     return account
@@ -40,5 +43,5 @@ module.exports = {
     findById,
     addUser,
     findByUsername,
-    checkIdentityByUsername
+    checkIdentityByEmail
 }
