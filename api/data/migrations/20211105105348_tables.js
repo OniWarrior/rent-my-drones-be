@@ -34,7 +34,6 @@ exports.up = function (knex) {
             drones.string('drone_description', 800)
             drones.decimal('drone_cost', 10, 2).notNullable()
             drones.string('drone_image')
-            drones.boolean('drone_isRented').defaultTo(0)
             drones.string('renter_username')
                 .references('username')
                 .inTable('User')
