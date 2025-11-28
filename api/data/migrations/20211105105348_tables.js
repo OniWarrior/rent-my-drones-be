@@ -59,6 +59,9 @@ exports.up = function (knex) {
                 .onDelete('CASCADE')
             returns.date('return_date').notNullable()
         })
+        .createTable('Order', orders => {
+            orders.increments('order_id').primary()
+        })
 };
 
 exports.down = function (knex) {
