@@ -40,10 +40,11 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
 
     try {
 
-        const { username, password } = req.body;
+        // login credentials
+        const { email, password } = req.body;
 
-        // find the user by username
-        const user = await User.findByUsername(username);
+        // find the user by email
+        const user = await User.findByEmail(email);
 
         // check if user was found and the decrypted password matches the password provided
         if (user && bcrypt.compareSync(password, user.password)) {
@@ -54,11 +55,11 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
             return res.status(200)
                 .cookie('token', token)
                 .json({
-                    message: `welcome back ${user.username}`,
+                    message: `welcome back ${user.email}`,
                     token
                 });
         } else {
-            return res.status(401).json({ message: 'Invalid username/password' });
+            return res.status(401).json({ message: 'Invalid email/password' });
         }
 
 
@@ -75,7 +76,7 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
 const makeToken = (user) => {
     const payload = {
         user_id: user.user_id,
-        username: user.username,
+        email: user.email,
         password: user.password
     }
 
