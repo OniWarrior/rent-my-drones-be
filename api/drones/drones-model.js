@@ -52,8 +52,8 @@ async function rentItem(drone_id, renterId) {
             'drone_description',
             'drone_cost',
             'drone_image',
-            'drone_isRented',
-            'renter_username'])
+            'drone_is_rented',
+            'renter_id'])
 
     return drone
 }
