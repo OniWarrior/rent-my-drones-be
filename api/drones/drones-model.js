@@ -13,7 +13,7 @@ async function available() {
                 'drone_image',
                 'owner_id'
             ])
-        .where('drone_isRented', 0)
+        .where('drone_is_rented', 0)
         .orderBy('drone_id')
 
     return drones
