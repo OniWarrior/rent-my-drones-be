@@ -82,15 +82,18 @@ const checkEmailExists = async (req, res, next) => {
 }
 
 
-// checks if username is available when registering new account.
-const checkUsernameFree = async (req, res, next) => {
+/*
+ * checkEmailAvailability: Middleware to check if email is available
+ * */
+const checkEmailAvailability = async (req, res, next) => {
 
     try {
-        const { username } = req.body;
+        // email to be checked.
+        const { email } = req.body;
 
 
-        // try to find user based on provided username
-        const user = await User.checkIdentityByUsername(username);
+        // try to find user based on provided email
+        const user = await User.checkIdentityByEmail(email);
 
         // check if the user was found
         if (!user) {
