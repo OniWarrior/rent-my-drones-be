@@ -1,7 +1,8 @@
-const router = require('express').Router()
-const Drone = require('../drones/drones-model')
-const { default: jwtDecode } = require('jwt-decode')
-const { restricted } = require('../auth/auth-middleware')
+const router = require('express').Router();
+const Drone = require('../drones/drones-model');
+const User = require('../users/user-model');
+const { default: jwtDecode } = require('jwt-decode');
+const { restricted } = require('../auth/auth-middleware');
 
 /*
  * /available : Endpoint that retrieves all available drones for renter
@@ -35,6 +36,8 @@ router.get('/rented', restricted, async (req, res) => {
     try {
         // decode token
         const decoded = jwtDecode(req.headers.authorization);
+
+
 
         // retrieve the drones rented by user
         const rented = await Drone.rented(decoded.email);
