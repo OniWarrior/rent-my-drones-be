@@ -86,7 +86,7 @@ router.put('/available/:drone_id', async (req, res) => {
         const rent = await Drone.rentItem(drone_id, renter.renter_id);
 
         // check if db op succeeded
-        if (rent) {
+        if (user && renter && rent) {
             // send success response
             return res.status(200).json({ rent: rent });
         }
