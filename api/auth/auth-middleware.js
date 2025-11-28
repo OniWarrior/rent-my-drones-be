@@ -130,6 +130,13 @@ const checkForMissingEmailPassword = (req, res, next) => {
     }
 }
 
+/*
+ * checkForMissingName: Middleware that checks for null or empty first name and last name
+ */
+const checkForMissingName = (req, res, next) => {
+
+}
+
 module.exports = {
     checkForMissingEmailPassword,
     checkEmailExists,
