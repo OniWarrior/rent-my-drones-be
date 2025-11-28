@@ -81,7 +81,6 @@ router.put('/available/:drone_id', async (req, res) => {
         // retrieve renter id
         const renter = await Renter.getRenterId(user.user_id);
 
-
         // rent a drone for user
         const rent = await Drone.rentItem(drone_id, renter.renter_id);
 
@@ -98,7 +97,10 @@ router.put('/available/:drone_id', async (req, res) => {
     }
 })
 
-//path to unrent an item
+
+/*
+ * /rented/:drone_id : endpoint that returns drone that renter used.
+ */
 router.put('/rented/:drone_id', async (req, res) => {
 
     try {
@@ -106,14 +108,8 @@ router.put('/rented/:drone_id', async (req, res) => {
         // get drone id
         const { drone_id } = req.params;
 
-        // temp boolean
-        const rented = false;
-
-        // available is set to ''. this is for the renter username
-        const available = null;
-
         // update availability of drone
-        const returnItem = await Drone.returnItem(drone_id, available, rented);
+        const returnItem = await Drone.returnItem(drone_id);
 
         // check if db op is successful
         if (returnItem) {
