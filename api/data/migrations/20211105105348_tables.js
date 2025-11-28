@@ -42,6 +42,11 @@ exports.up = function (knex) {
         })
         .createTable('Return', returns => {
             returns.increments('return_id').primary()
+            returns.integer('renter_id')
+                .references('renter_id')
+                .inTable('Renter')
+                .onUpdate('CASCADE')
+                .onDelete("CASCADE")
         })
 };
 
