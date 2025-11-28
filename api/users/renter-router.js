@@ -75,11 +75,10 @@ router.put('/available/:drone_id', async (req, res) => {
         // decode token
         const decode = jwtDecode(req.headers.authorization);
 
-        // temp boolean
-        const rented = true;
+
 
         // rent a drone for user
-        const rent = await Drone.rentItem(drone_id, decode.username, rented);
+        const rent = await Drone.rentItem(drone_id, decode.username);
 
         // check if db op succeeded
         if (rent) {
