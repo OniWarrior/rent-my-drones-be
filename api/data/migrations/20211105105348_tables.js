@@ -29,7 +29,7 @@ exports.up = function (knex) {
                 .onDelete('CASCADE')
         })
         .createTable('Drone', drones => {
-            drones.increments('drone_id')
+            drones.increments('drone_id').primary()
             drones.string('drone_name', 128).notNullable()
             drones.string('drone_description', 800)
             drones.decimal('drone_cost', 10, 2).notNullable()
