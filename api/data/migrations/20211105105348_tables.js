@@ -61,6 +61,22 @@ exports.up = function (knex) {
         })
         .createTable('Order', orders => {
             orders.increments('order_id').primary()
+            orders.integer('renter_id')
+                .references('renter_id')
+                .inTable('Renter')
+                .onUpdate('CASCADE')
+                .onDelete("CASCADE")
+            orders.integer('owner_id')
+                .references('owner_id')
+                .inTable('Owner')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE')
+            orders.integer('drone_id')
+                .references('drone_id')
+                .inTable('Drone')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE')
+            orders.date('date_date').notNullable()
         })
 };
 
