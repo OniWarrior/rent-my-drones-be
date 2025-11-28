@@ -52,6 +52,11 @@ exports.up = function (knex) {
                 .inTable('Owner')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE')
+            returns.integer('drone_id')
+                .references('drone_id')
+                .inTable('Drone')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE')
         })
 };
 
