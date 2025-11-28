@@ -5,13 +5,14 @@ const { JWT_SECRET } = require('../secrets/secret')
 const {
     checkEmailAvailability,
     checkEmailExists,
-    checkForMissingEmailPassword
+    checkForMissingEmailPassword,
+    checkForMissingName
 } = require('../auth/auth-middleware')
 
 const User = require('../users/user-model')
 
 // path for registering new account
-router.post('/signup', checkForMissingEmailPassword, checkEmailAvailability, async (req, res) => {
+router.post('/signup', checkForMissingName, checkForMissingEmailPassword, checkEmailAvailability, async (req, res) => {
     try {
 
         // retrieve password and hash it
