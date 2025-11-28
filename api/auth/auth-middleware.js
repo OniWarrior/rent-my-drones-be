@@ -153,6 +153,7 @@ module.exports = {
     checkForMissingEmailPassword,
     checkEmailExists,
     checkEmailAvailability,
-    restricted
+    restricted,
+    checkForMissingName
 }
 
