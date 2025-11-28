@@ -59,8 +59,8 @@ const checkEmailExists = async (req, res, next) => {
         // email to check
         const { email } = req.body;
 
-        // try to match username profided with an existing user to confirm identity
-        const user = await User.checkIdentityByUsername(username);
+        // try to match email profided with an existing user to confirm identity
+        const user = await User.checkIdentityByEmail(email);
 
         // check if the username was found
         if (user) {
