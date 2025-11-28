@@ -75,6 +75,10 @@ router.put('/available/:drone_id', async (req, res) => {
         // decode token
         const decode = jwtDecode(req.headers.authorization);
 
+        // retrieve user id
+        const user = await User.findByEmail(decode.email);
+
+
 
 
         // rent a drone for user
