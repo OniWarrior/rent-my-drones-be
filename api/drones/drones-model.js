@@ -5,12 +5,14 @@ const db = require('../data/dbConfig')
  */
 async function available() {
     const drones = await db('Drone')
-        .returning(['drone_id',
-            'drone_name',
-            'drone_description',
-            'drone_cost',
-            'drone_image',
-            'drone_isRented'])
+        .returning(
+            ['drone_id',
+                'drone_name',
+                'drone_description',
+                'drone_cost',
+                'drone_image',
+                'owner_id'
+            ])
         .where('drone_isRented', 0)
         .orderBy('drone_id')
 
