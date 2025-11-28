@@ -76,7 +76,7 @@ exports.up = function (knex) {
                 .inTable('Drone')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE')
-            orders.date('date_date').notNullable()
+            orders.date('order_date').notNullable()
         })
 };
 
