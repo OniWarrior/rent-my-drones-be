@@ -61,7 +61,10 @@ router.get('/rented', restricted, async (req, res) => {
 
 })
 
-// path to rent a drone
+/*
+ * /available/:drone_id: endpoint that uses drone id to rent drone for renter
+ * 
+ */
 router.put('/available/:drone_id', async (req, res) => {
 
     try {
