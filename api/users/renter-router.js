@@ -83,7 +83,7 @@ router.put('/available/:drone_id', async (req, res) => {
 
 
         // rent a drone for user
-        const rent = await Drone.rentItem(drone_id, decode.username);
+        const rent = await Drone.rentItem(drone_id, renter.renter_id);
 
         // check if db op succeeded
         if (rent) {
