@@ -22,6 +22,11 @@ exports.up = function (knex) {
         })
         .createTable('Owner', owners => {
             owners.increments('owner_id').primary()
+            owners.integer('user_id')
+                .references('user_id')
+                .inTable('User')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE')
         })
         .createTable('Drone', drones => {
             drones.increments('drone_id')
