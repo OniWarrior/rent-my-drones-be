@@ -1,5 +1,8 @@
 const db = require('../data/dbConfig')
 
+/*
+ * available: query that retrieves all drones currently not being rented.
+ */
 async function available() {
     const drones = await db('Drone')
         .returning(['drone_id',
