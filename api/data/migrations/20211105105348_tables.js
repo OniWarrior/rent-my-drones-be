@@ -1,4 +1,8 @@
-
+/*
+ * Author : Stephen Aranda 
+ * File   : 20211105105348_tables.js
+ * Desc   : File that holds the javascript tables that will be migrated to PostgreSQL db
+ */
 exports.up = function (knex) {
     return knex.schema
         .createTable('User', users => {
