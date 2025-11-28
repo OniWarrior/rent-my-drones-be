@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Drone = require('../drones/drones-model');
-const Renter = require('../users/user-model');
+const Renter = require('../users/renter-model');
+const User = require('../users/user-model');
 const { default: jwtDecode } = require('jwt-decode');
 const { restricted } = require('../auth/auth-middleware');
 
@@ -37,14 +38,17 @@ router.get('/rented', restricted, async (req, res) => {
         // decode token
         const decoded = jwtDecode(req.headers.authorization);
 
+        // retrieve user id of user
+        const user = await User.findByEmail(decoded.email);
+
         // retrieve renter id of user
-        const renter = await User.findByEmail(decoded.email);
+        const renter = await Renter.getRenterId(user.user_id);
 
         // retrieve the drones rented by user
-        const rented = await Drone.rented(decoded.email);
+        const rented = await Drone.rented(renter.renter_id);
 
         //check if the retrieval was successful
-        if (rented) {
+        if (user && renter && rented) {
 
             // send success response
             return res.status(200).json({ rented: rented });
