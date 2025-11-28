@@ -131,9 +131,9 @@ const checkForMissingEmailPassword = (req, res, next) => {
 }
 
 module.exports = {
-    checkForMissingUsernamePassword,
-    checkUsernameExists,
-    checkUsernameFree,
+    checkForMissingEmailPassword,
+    checkEmailExists,
+    checkEmailAvailability,
     restricted
 }
 
