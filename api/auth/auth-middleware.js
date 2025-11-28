@@ -97,11 +97,11 @@ const checkEmailAvailability = async (req, res, next) => {
 
         // check if the user was found
         if (!user) {
-            // user not found: username is available
+            // user not found: email is available
             next();
         } else {
-            // if username already in use - failure response
-            return res.status(422).json({ message: `Username already taken` });
+            // if email already in use - failure response
+            return res.status(422).json({ message: `Email already in use` });
 
         }
 
