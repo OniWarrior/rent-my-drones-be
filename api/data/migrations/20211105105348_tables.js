@@ -41,6 +41,7 @@ exports.up = function (knex) {
                 .onDelete('CASCADE')
             drones.boolean('is_rented').defaultTo(false)
             drones.integer('renter_id')
+                .defaultTo(0)
                 .references('renter_id')
                 .inTable('Renter')
                 .onUpdate('CASCADE')
