@@ -78,7 +78,8 @@ router.put('/available/:drone_id', async (req, res) => {
         // retrieve user id
         const user = await User.findByEmail(decode.email);
 
-
+        // retrieve renter id
+        const renter = await Renter.getRenterId(user.user_id);
 
 
         // rent a drone for user
