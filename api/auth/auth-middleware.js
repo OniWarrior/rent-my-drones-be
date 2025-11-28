@@ -121,9 +121,9 @@ const checkForMissingEmailPassword = (req, res, next) => {
     // email and password to be checked.
     const { email, password } = req.body
 
-    if (!username || username === "" ||
+    if (!email || email === "" ||
         !password || password === "") {
-        return res.status(400).json({ message: "Username and password are required" });
+        return res.status(400).json({ message: "Email and password are required" });
     }
     else {
         next();
