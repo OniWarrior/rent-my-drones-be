@@ -1,3 +1,10 @@
+/*
+ * Author: Stephen Aranda
+ * File  : auth-middleware.js
+ * Desc  : Middleware that checks for a valid token, an available email, if an email already
+ *       : exists, and a missing email and password.
+ * */
+
 const { JWT_SECRET } = require('../secrets/secret')
 const jwt = require('jsonwebtoken')
 const User = require('../users/user-model')
