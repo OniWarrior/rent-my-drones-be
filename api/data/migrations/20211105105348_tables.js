@@ -34,16 +34,21 @@ exports.up = function (knex) {
             drones.string('drone_description', 800)
             drones.decimal('drone_cost', 10, 2).notNullable()
             drones.string('drone_image')
-            drones.string('renter_username')
-                .references('username')
-                .inTable('User')
+            drones.integer('owner_id')
+                .references('owner_id')
+                .inTable('Owner')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE')
+        })
+        .createTable('Return', returns => {
+            returns.increments('return_id').primary()
         })
 };
 
 exports.down = function (knex) {
     return knex.schema
         .dropTableIfExists('Drone')
+        .dropTableIfExists('Owner')
+        .dropTableIfExists('Renter')
         .dropTableIfExists('User')
 };
