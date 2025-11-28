@@ -113,10 +113,13 @@ const checkEmailAvailability = async (req, res, next) => {
     }
 }
 
-// checks whether or not there's a missing or undefined username/password when signing in
-// or registering.
-const checkForMissingUsernamePassword = (req, res, next) => {
-    const { username, password } = req.body
+/*
+ * checkForMissingEmailPassword: middleware that checks for null or empty email/password
+ * */
+const checkForMissingEmailPassword = (req, res, next) => {
+
+    // email and password to be checked.
+    const { email, password } = req.body
 
     if (!username || username === "" ||
         !password || password === "") {
