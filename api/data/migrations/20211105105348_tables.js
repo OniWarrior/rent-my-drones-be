@@ -5,6 +5,7 @@ exports.up = function (knex) {
             users.increments('user_id')
             users.string('email', 128).notNullable().unique()
             users.string('password', 128).notNullable()
+            users.string('first_name', 30).notNullable()
         })
         .createTable('Drone', drones => {
             drones.increments('drone_id')
