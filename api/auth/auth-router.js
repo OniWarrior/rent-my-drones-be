@@ -3,13 +3,15 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = require('../secrets/secret')
 const {
-    checkUsernameFree, checkUsernameExists, checkForMissingUsernamePassword
+    checkEmailAvailability,
+    checkEmailExists,
+    checkForMissingEmailPassword
 } = require('../auth/auth-middleware')
 
 const User = require('../users/user-model')
 
 // path for registering new account
-router.post('/signup', checkForMissingUsernamePassword, checkUsernameFree, async (req, res) => {
+router.post('/signup', checkForMissingEmailPassword, checkEmailAvailability, async (req, res) => {
     try {
 
         // retrieve password and hash it
@@ -34,7 +36,7 @@ router.post('/signup', checkForMissingUsernamePassword, checkUsernameFree, async
 
 
 // path for login to existing account
-router.post('/login', checkForMissingUsernamePassword, checkUsernameExists, async (req, res) => {
+router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req, res) => {
 
     try {
 
