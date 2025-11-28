@@ -13,10 +13,14 @@ async function checkIdentityByEmail(email) {
 
     return account
 }
-async function findByUsername(username) {
+
+/*
+ * findByEmail: Try to find a user by email
+ */
+async function findByEmail(email) {
     const account = await db('User')
-        .returning(['username', 'password'])
-        .where('username', username)
+        .returning(['email', 'password'])
+        .where('email', email)
         .first()
 
     return account
@@ -42,6 +46,6 @@ async function findById(id) {
 module.exports = {
     findById,
     addUser,
-    findByUsername,
+    findByEmail,
     checkIdentityByEmail
 }
