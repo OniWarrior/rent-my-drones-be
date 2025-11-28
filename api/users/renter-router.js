@@ -8,7 +8,7 @@ const { restricted } = require('../auth/auth-middleware')
  *            : or anyone not logged in to the app
  * 
  */
-router.get('/available', restricted, async (req, res) => {
+router.get('/available', async (req, res) => {
     try {
 
         // retrieve all available drones
