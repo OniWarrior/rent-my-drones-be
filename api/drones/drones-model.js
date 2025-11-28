@@ -35,7 +35,12 @@ async function rented(renterId) {
 
 }
 
-async function rentItem(drone_id, username, rented) {
+/*
+ * rentItem: Rents drone for user
+ * @drone_id : parameter that's used to update drone status
+ * @renter_id: parameter that's used to identify the renter of the drone
+ * */
+async function rentItem(drone_id, renterId) {
     const drone = await db('Drone')
         .update({
             drone_isRented: rented,
