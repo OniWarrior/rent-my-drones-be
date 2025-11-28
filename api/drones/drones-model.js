@@ -20,7 +20,7 @@ async function available() {
 
 }
 
-async function rented(renter_username) {
+async function rented(renterId) {
     const drones = await db('Drone')
         .returning(['drone_id',
             'drone_name',
@@ -28,7 +28,7 @@ async function rented(renter_username) {
             'drone_cost',
             'drone_image',
             'drone_isRented'])
-        .where('renter_username', renter_username)
+        .where('renter_id', renterId)
         .orderBy('drone_id')
 
     return drones
