@@ -39,6 +39,13 @@ exports.up = function (knex) {
                 .inTable('Owner')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE')
+            drones.boolean('is_rented').defaultTo(false)
+            drones.integer('renter_id')
+                .references('renter_id')
+                .inTable('Renter')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE')
+
         })
         .createTable('Return', returns => {
             returns.increments('return_id').primary()
