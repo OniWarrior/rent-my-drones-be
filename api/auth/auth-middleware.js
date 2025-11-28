@@ -138,6 +138,15 @@ const checkForMissingName = (req, res, next) => {
     // first name and last name to be checked
     const { first_name, last_name } = req.body;
 
+    // check if there is missing or empty first and last name
+    if (!first_name || first_name === '' ||
+        !last_name || last_name === '') {
+        return res.status(400).json({ message: "First and last name are required" });
+    }
+    else {
+        next();
+    }
+
 }
 
 module.exports = {
