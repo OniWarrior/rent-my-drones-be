@@ -59,12 +59,14 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
                     token
                 });
         } else {
+            // bad request response sent for invalid creds
             return res.status(401).json({ message: 'Invalid email/password' });
         }
 
 
 
     } catch (err) {
+        // internal server error
         return res.status(500).json({ message: `Server error: ${err.message}` });
     }
 
