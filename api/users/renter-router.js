@@ -128,6 +128,20 @@ router.put('/rented/:drone_id', async (req, res) => {
         // update availability of drone
         const returnItem = await Drone.returnItem(drone_id);
 
+        // retrieve date of insertion of return record- today's date
+        const date = new Date();
+
+        // build return obj to be inserted into return table
+        const returnedRecord = {
+            renter_id: renter.renter_id,
+            owner_id: owner.owner_id,
+            drone_id: drone_id,
+            return_date: date
+        };
+
+        // insert order obj into db
+        const addOrder = await Renter.addOrder(order);
+
         // check if db op is successful
         if (returnItem) {
             //send success response
