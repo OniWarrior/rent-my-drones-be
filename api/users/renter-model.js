@@ -51,6 +51,7 @@ async function addReturn(returnRecord) {
 module.exports = {
     getRenterId,
     getOwnerId,
-    addOrder
+    addOrder,
+    addReturn
 
 }
