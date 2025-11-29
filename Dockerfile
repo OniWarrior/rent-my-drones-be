@@ -15,3 +15,8 @@ COPY . .
 
 # set the environment
 ENV NODE_ENV=production 
+
+# expose port for local use
+# once deployed heroku will inject PORT
+EXPOSE 4000
+
