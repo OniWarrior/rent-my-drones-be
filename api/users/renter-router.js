@@ -139,8 +139,8 @@ router.put('/rented/:drone_id', async (req, res) => {
             return_date: date
         };
 
-        // insert order obj into db
-        const addOrder = await Renter.addOrder(order);
+        // insert return obj into db
+        const addReturn = await Renter.addReturn(returnedRecord);
 
         // check if db op is successful
         if (returnItem) {
