@@ -137,7 +137,8 @@ router.put('/rented/:drone_id', restricted, async (req, res) => {
         // update availability of drone
         const returnItem = await Drone.returnItem(drone_id);
 
-
+        // retrieve owner id of the owner of the drone.
+        const owner = await Renter.getOwnerId(drone_id);
 
         // retrieve date of insertion of return record- today's date
         const date = new Date();
