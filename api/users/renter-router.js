@@ -87,18 +87,22 @@ router.put('/available/:drone_id', restricted, async (req, res) => {
         // retrieve owner id of the owner of the drone.
         const owner = await Renter.getOwnerId(drone_id);
 
+        // retrieve date of insertion- today's date
+        const date = new Date();
+
         // build order obj to be inserted into order table
         const order = {
             renter_id: renter.renter_id,
             owner_id: owner.owner_id,
-            drone_id: drone_id
-        }
+            drone_id: drone_id,
+            order_date: date
+        };
 
         // insert order obj into db
         const addOrder = await Renter.addOrder(order);
 
         // check if db op succeeded
-        if (user && renter && rent) {
+        if (user && renter && rent && addOrder) {
             // send success response
             return res.status(200).json({ rent: rent });
         }
