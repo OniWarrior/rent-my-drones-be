@@ -12,3 +12,6 @@ RUN npm install --production
 
 # copy the rest of backend source
 COPY . .
+
+# set the environment
+ENV NODE_ENV=production 
