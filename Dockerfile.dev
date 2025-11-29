@@ -3,3 +3,6 @@ FROM node:20-alpine
 
 # make work directory for app
 WORKDIR /app 
+
+# copy dependencies first
+COPY package*.json ./
