@@ -117,6 +117,7 @@ router.put('/available/:drone_id', restricted, async (req, res) => {
 
 /*
  * /rented/:drone_id : endpoint that returns drone that renter used.
+ * 
  */
 router.put('/rented/:drone_id', restricted, async (req, res) => {
 

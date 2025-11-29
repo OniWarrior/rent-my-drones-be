@@ -36,6 +36,14 @@ async function addOrder(order) {
     return addedOrder
 }
 
+/*
+ * addReturn: adds a return into the database using the returnRecord parameter
+ * @returnRecord: Parameter that is a return record that will be inserted into the db
+ */
+async function addReturn(returnRecord) {
+
+}
+
 module.exports = {
     getRenterId,
     getOwnerId,
