@@ -155,7 +155,7 @@ router.put('/rented/:drone_id', restricted, async (req, res) => {
         const addReturn = await Renter.addReturn(returnedRecord);
 
         // check if db op is successful
-        if (returnItem) {
+        if (user && renter && returnItem && owner && addReturn) {
             //send success response
             return res.status(200).json({ returnItem: returnItem });
         }
