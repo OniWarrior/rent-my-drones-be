@@ -25,6 +25,14 @@ async function getOwnerId(drone_id) {
     return owner
 }
 
+/*
+ * addOrder: adds an order into the database using order parameter
+ * @order: parameter that will be inserted into db
+ */
+async function addOrder(order) {
+
+}
+
 module.exports = {
     getRenterId,
     getOwnerId
