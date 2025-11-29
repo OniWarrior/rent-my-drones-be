@@ -41,6 +41,10 @@ async function addOrder(order) {
  * @returnRecord: Parameter that is a return record that will be inserted into the db
  */
 async function addReturn(returnRecord) {
+    const addedRecord = await db('Return')
+        .returning(['return_id'])
+        .insert(returnRecord)
+    return addedRecord
 
 }
 
