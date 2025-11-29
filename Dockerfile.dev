@@ -12,3 +12,6 @@ RUN npm install
 
 # copy rest of backend source
 COPY . .
+
+# set environment
+ENV NODE_ENV=development
