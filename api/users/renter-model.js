@@ -26,6 +26,7 @@ async function getOwnerId(drone_id) {
 }
 
 module.exports = {
-    getRenterId
+    getRenterId,
+    getOwnerId
 
 }
