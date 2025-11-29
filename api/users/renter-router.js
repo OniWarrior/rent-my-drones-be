@@ -85,7 +85,7 @@ router.put('/available/:drone_id', async (req, res) => {
         const rent = await Drone.rentItem(drone_id, renter.renter_id);
 
         // retrieve owner id of the owner of the drone.
-        const owner = await
+        const owner = await Renter.getOwnerId(drone_id);
 
         // check if db op succeeded
         if (user && renter && rent) {
