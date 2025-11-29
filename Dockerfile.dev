@@ -15,3 +15,8 @@ COPY . .
 
 # set environment
 ENV NODE_ENV=development
+
+# expose backend port
+EXPOSE 5000
+
+
