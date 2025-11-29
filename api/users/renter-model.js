@@ -30,7 +30,10 @@ async function getOwnerId(drone_id) {
  * @order: parameter that will be inserted into db
  */
 async function addOrder(order) {
-
+    const order = await db('Order')
+        .returning(['order_id'])
+        .insert(order)
+    return order
 }
 
 module.exports = {
