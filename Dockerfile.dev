@@ -19,4 +19,5 @@ ENV NODE_ENV=development
 # expose backend port
 EXPOSE 5000
 
-
+# start the server
+CMD [ "npm","server" ]
