@@ -125,8 +125,19 @@ router.put('/rented/:drone_id', restricted, async (req, res) => {
         // get drone id
         const { drone_id } = req.params;
 
+        // decode token
+        const decode = jwtDecode(req.headers.authorization);
+
+        // retrieve user id
+        const user = await User.findByEmail(decode.email);
+
+        // retrieve renter id
+        const renter = await Renter.getRenterId(user.user_id);
+
         // update availability of drone
         const returnItem = await Drone.returnItem(drone_id);
+
+
 
         // retrieve date of insertion of return record- today's date
         const date = new Date();
