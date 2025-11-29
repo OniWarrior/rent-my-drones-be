@@ -9,3 +9,6 @@ COPY package*.json ./
 
 # Install production dependencies
 RUN npm install --production
+
+# copy the rest of backend source
+COPY . .
