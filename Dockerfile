@@ -20,3 +20,5 @@ ENV NODE_ENV=production
 # once deployed heroku will inject PORT
 EXPOSE 4000
 
+# start the server
+CMD [ "npm","server.js" ]
