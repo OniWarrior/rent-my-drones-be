@@ -17,6 +17,13 @@ async function getRenterId(userId) {
  * getOwnerId: get the owner id of the owner of drone using drone id parameter
  * @drone_id : parameter that will be used to retrieve owner id
  */
+async function getOwnerId(drone_id) {
+    const owner = await db('Drone')
+        .returning(['owner_id'])
+        .where('drone_id', drone_id)
+        .first()
+    return owner
+}
 
 module.exports = {
     getRenterId
