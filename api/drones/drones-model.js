@@ -35,11 +35,16 @@ async function rented(renterId) {
 
 }
 
-async function rentItem(drone_id, username, rented) {
+/*
+ * rentItem: Rents drone for user
+ * @drone_id : parameter that's used to update drone status
+ * @renter_id: parameter that's used to identify the renter of the drone
+ * */
+async function rentItem(drone_id, renterId) {
     const drone = await db('Drone')
         .update({
-            drone_isRented: rented,
-            renter_username: username
+            drone_isRented: true,
+            renter_id: renterId
         })
         .where('drone_id', drone_id)
         .returning(['drone_id',
@@ -47,18 +52,22 @@ async function rentItem(drone_id, username, rented) {
             'drone_description',
             'drone_cost',
             'drone_image',
-            'drone_isRented',
-            'renter_username'])
+            'drone_is_rented',
+            'renter_id'])
 
     return drone
 }
 
-async function returnItem(drone_id, available, rented) {
+/*
+ * returnItem: query that updates the status of drone to available
+ * @drone_id: parameter of the drone id is used to update the correct record.
+ */
+async function returnItem(drone_id) {
 
     const drone = await db('Drone')
         .update({
-            drone_isRented: rented,
-            renter_username: available
+            drone_isRented: false,
+            renter_id: 0
         })
         .where('drone_id', drone_id)
         .returning(['drone_id',
@@ -66,8 +75,8 @@ async function returnItem(drone_id, available, rented) {
             'drone_description',
             'drone_cost',
             'drone_image',
-            'drone_isRented',
-            'renter_username'])
+            'drone_is_rented',
+            'renter_id'])
     return drone
 
 }
