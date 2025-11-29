@@ -94,6 +94,9 @@ router.put('/available/:drone_id', restricted, async (req, res) => {
             drone_id: drone_id
         }
 
+        // insert order obj into db
+        const addOrder = await Renter.addOrder(order);
+
         // check if db op succeeded
         if (user && renter && rent) {
             // send success response
