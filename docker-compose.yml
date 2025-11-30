@@ -4,3 +4,5 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: rent-my-drones-be-dev
+    ports:
+      - "8000:8000"
