@@ -6,3 +6,5 @@ services:
     container_name: rent-my-drones-be-dev
     ports:
       - "8000:8000"
+    env_file:
+      - .env
