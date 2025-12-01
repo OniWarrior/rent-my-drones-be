@@ -62,6 +62,14 @@ async function addOwner(user_id) {
 
 }
 
+/*
+ * findOwnerById: Find if there's an owner using the user id of user
+ * @user_id     : Parameter that will be used to find the owner
+ */
+async function findOwnerById(user_id) {
+
+}
+
 
 
 module.exports = {
