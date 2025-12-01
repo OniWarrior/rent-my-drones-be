@@ -1,15 +1,16 @@
-const router = require('express').Router()
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const { JWT_SECRET } = require('../secrets/secret')
+const router = require('express').Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../secrets/secret');
 const {
     checkEmailAvailability,
     checkEmailExists,
     checkForMissingEmailPassword,
     checkForMissingName
-} = require('../auth/auth-middleware')
+} = require('../auth/auth-middleware');
 
-const User = require('../users/user-model')
+const User = require('../users/user-model');
+const Renter = require('../users/renter-model');
 
 // path for registering new account
 router.post('/signup', checkForMissingName, checkForMissingEmailPassword, checkEmailAvailability, async (req, res) => {
@@ -64,6 +65,10 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
 
         // check if user was found and the decrypted password matches the password provided
         if (user && bcrypt.compareSync(password, user.password)) {
+
+            // do a search for user type
+            const renter = await Renter.getRenterId(user.user_id);
+            const owner = await User.findOwnerById(user.user_id);
 
             // make token
             const token = makeToken(user);
