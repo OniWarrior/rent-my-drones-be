@@ -67,7 +67,11 @@ async function addOwner(user_id) {
  * @user_id     : Parameter that will be used to find the owner
  */
 async function findOwnerById(user_id) {
-
+    const foundOwner = await db("Owner")
+        .returning(['owner_id', 'user_id'])
+        .where('user_id', user_id)
+        .first()
+    return foundOwner
 }
 
 
@@ -76,6 +80,7 @@ module.exports = {
     addRenter,
     addOwner,
     addUser,
+    findOwnerById,
     findByEmail,
     checkIdentityByEmail
 }
