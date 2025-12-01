@@ -42,11 +42,17 @@ async function addUser(user) {
  * addRenter: Add renter to db
  * @user_id: Parameter of user that will be added to db
  * */
+async function addRenter(user_id) {
+    const addRenter = await db("Renter")
+        .returning(['renter_id', 'user_id'])
+        .insert(user_id)
+    return addRenter
+}
 
 
 
 module.exports = {
-
+    addRenter,
     addUser,
     findByEmail,
     checkIdentityByEmail
