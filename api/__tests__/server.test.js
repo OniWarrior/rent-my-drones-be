@@ -23,7 +23,8 @@ describe('[POST] /signup', () => {
                 email: 'hello@gmail.com',
                 password: 'yellow123456ghsty',
                 first_name: "John",
-                last_name: "Doe"
+                last_name: "Doe",
+                user_type: "Renter"
             })
 
         expect(res.status).toBe(201)
