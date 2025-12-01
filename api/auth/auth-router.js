@@ -25,7 +25,7 @@ router.post('/signup', checkForMissingName, checkForMissingEmailPassword, checkE
         // add user to db
         const addedUser = await User.addUser(user);
 
-        // switch cases
+        // switch cases - and roles that will be sent back in success response
         const RENTER = "Renter";
         const OWNER = "Owner"
 
@@ -70,20 +70,38 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
             const renter = await Renter.getRenterId(user.user_id);
             const owner = await User.findOwnerById(user.user_id);
 
+
             // check if renter was found
             if (renter && !owner) {
+                // renter was found - send success response with role
+                // make token
+                const token = makeToken(user);
+
+                return res.status(200)
+                    .cookie('token', token)
+                    .json({
+                        message: `welcome back ${user.email}`,
+                        role: "Renter",
+                        token
+                    });
+
+            } else if (owner && !renter) {
+                // owner was found - send success response with role
+                // make token
+                const token = makeToken(user);
+
+                return res.status(200)
+                    .cookie('token', token)
+                    .json({
+                        message: `welcome back ${user.email}`,
+                        role: "Owner",
+                        token
+                    });
 
             }
 
-            // make token
-            const token = makeToken(user);
 
-            return res.status(200)
-                .cookie('token', token)
-                .json({
-                    message: `welcome back ${user.email}`,
-                    token
-                });
+
         } else {
             // bad request response sent for invalid creds
             return res.status(401).json({ message: 'Invalid email/password' });
