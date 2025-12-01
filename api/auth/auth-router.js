@@ -66,13 +66,11 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
         // check if user was found and the decrypted password matches the password provided
         if (user && bcrypt.compareSync(password, user.password)) {
 
-            // do a search for user type
+            // do a search for renter
             const renter = await Renter.getRenterId(user.user_id);
-            const owner = await User.findOwnerById(user.user_id);
-
 
             // check if renter was found
-            if (renter && !owner) {
+            if (renter) {
                 // renter was found - send success response with role
                 // make token
                 const token = makeToken(user);
@@ -85,7 +83,13 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
                         token
                     });
 
-            } else if (owner && !renter) {
+            }
+
+            // do a search for owner
+            const owner = await User.findOwnerById(user.user_id);
+
+            // check if owner was found
+            if (owner) {
                 // owner was found - send success response with role
                 // make token
                 const token = makeToken(user);
