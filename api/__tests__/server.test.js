@@ -45,13 +45,13 @@ describe('[POST] /signup', () => {
 })
 
 // integrations tests for login request
-describe('[POST] /Login', () => {
+describe('[POST] /login', () => {
     it('returns a status 200 login successful', async () => {
 
         const res = await request(server)
-            .post('/api/auth/Login')
+            .post('/api/auth/login')
             .send({
-                username: "hello@gmail.com",
+                email: "hello@gmail.com",
                 password: "yellow123456ghsty"
             })
         expect(res.status).toBe(200)
