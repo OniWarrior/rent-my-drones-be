@@ -31,10 +31,13 @@ describe('[POST] /signup', () => {
     })
     it('returns a status of 400 to indicate failure of request', async () => {
         const res = await request(server)
-            .post('/api/auth/Signup')
+            .post('/api/auth/signup')
             .send({
-                username: "",
-                password: ""
+                email: "",
+                password: "",
+                first_name: '',
+                last_name: 'hello',
+                user_type: "lol"
             })
         expect(res.status).toBe(400)
     })
