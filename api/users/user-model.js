@@ -49,6 +49,14 @@ async function addRenter(user_id) {
     return addRenter
 }
 
+/*
+ * addOwner: Add owner to db
+ * @user_id: Parameter of user that will be added to db
+ * */
+async function addOwner(user_id) {
+
+}
+
 
 
 module.exports = {
