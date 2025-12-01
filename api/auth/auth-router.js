@@ -28,16 +28,19 @@ router.post('/signup', checkForMissingName, checkForMissingEmailPassword, checkE
         const RENTER = "Renter";
         const OWNER = "Owner"
 
+        let addedRenter;
+        let addedOwner;
+
         // look at user type
         switch (user.user_type) {
-            case RENTER: const addedRenter = await User.addRenter(addedUser.user_id); break;
-            case OWNER: const addedOwner = await User.addOwner(addedUser.user_id); break;
+            case RENTER: addedRenter = await User.addRenter(addedUser.user_id); break;
+            case OWNER: addedOwner = await User.addOwner(addedUser.user_id); break;
             default:
                 return res.status(401).json({ message: "Missing or incorrect user type." });
         }
 
         // check if db op succeeded
-        if (addedUser) {
+        if (addedUser && (addedRenter || addedOwner)) {
             return res.status(201).json({ addedUser: addedUser });
         }
     } catch (err) {
