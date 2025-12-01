@@ -1,0 +1,23 @@
+# use light weight image
+FROM node:20-alpine
+
+# make work directory for app
+WORKDIR /app 
+
+# copy dependencies first
+COPY package*.json ./
+
+# install dependencies
+RUN npm install 
+
+# copy rest of backend source
+COPY . .
+
+# set environment
+ENV NODE_ENV=development
+
+# expose backend port
+EXPOSE 8000
+
+# start the server
+CMD [ "npm","server" ]
