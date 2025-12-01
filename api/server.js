@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const { restricted } = require('../api/auth/auth-middleware');
 
 const authRouter = require('../api/auth/auth-router');
-const userRouter = require('./users/user-router');
+const renterRouter = require('./users/renter-router');
 
 const server = express();
 
@@ -42,6 +42,6 @@ server.options('*', cors(corsOptions));
 server.use(cookieParser());
 
 server.use('/api/auth', authRouter);
-server.use('/api/users', userRouter, restricted);
+server.use('/api/users', renterRouter, restricted);
 
 module.exports = server
