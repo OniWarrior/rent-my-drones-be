@@ -61,9 +61,9 @@ describe('[POST] /login', () => {
 
 
         const res = await request(server)
-            .post('/api/auth/Login')
+            .post('/api/auth/login')
             .send({
-                username: 'hello@gmail.com',
+                email: 'hello@gmail.com',
                 password: 'yello'
             })
         expect(res.status).toBe(401)
