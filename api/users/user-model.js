@@ -38,6 +38,10 @@ async function addUser(user) {
         .insert(user)
     return addUser
 }
+/*
+ * addRenter: Add renter to db
+ * @user_id: Parameter of user that will be added to db
+ * */
 
 
 
