@@ -24,8 +24,15 @@ router.post('/signup', checkForMissingName, checkForMissingEmailPassword, checkE
         // add user to db
         const addedUser = await User.addUser(user);
 
-        // look at the user type
+        // switch cases
+        const RENTER = "Renter";
+        const OWNER = "Owner"
+
+        // look at user type
         switch (user.user_type) {
+            case RENTER: const addedRenter = await User.addRenter(addedUser.user_id); break;
+
+
 
         }
 
