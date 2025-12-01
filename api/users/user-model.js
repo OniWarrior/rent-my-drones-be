@@ -34,7 +34,7 @@ async function findByEmail(email) {
  */
 async function addUser(user) {
     const addUser = await db('User')
-        .returning(['email', 'password'])
+        .returning(['user_id', 'email', 'password'])
         .insert(user)
     return addUser
 }
