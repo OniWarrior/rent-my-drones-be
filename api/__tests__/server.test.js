@@ -18,10 +18,11 @@ afterAll(async () => {
 describe('[POST] /signup', () => {
     it('returns a status of 201 Created', async () => {
         const res = await request(server)
-            .post('/api/auth/Signup')
+            .post('/api/auth/signup')
             .send({
-                username: 'hello@gmail.com',
-                password: 'yellow123456ghsty'
+                email: 'hello@gmail.com',
+                password: 'yellow123456ghsty',
+                first_name: "John"
             })
 
         expect(res.status).toBe(201)
