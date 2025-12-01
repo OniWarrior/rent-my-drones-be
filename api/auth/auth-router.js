@@ -24,6 +24,11 @@ router.post('/signup', checkForMissingName, checkForMissingEmailPassword, checkE
         // add user to db
         const addedUser = await User.addUser(user);
 
+        // look at the user type
+        switch (user.user_type) {
+
+        }
+
         // check if db op succeeded
         if (addedUser) {
             return res.status(201).json({ addedUser: addedUser });
