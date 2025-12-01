@@ -70,6 +70,11 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
             const renter = await Renter.getRenterId(user.user_id);
             const owner = await User.findOwnerById(user.user_id);
 
+            // check if renter was found
+            if (renter && !owner) {
+
+            }
+
             // make token
             const token = makeToken(user);
 
