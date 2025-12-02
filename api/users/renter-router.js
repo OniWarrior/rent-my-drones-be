@@ -42,6 +42,9 @@ router.post('/renter-total-rented', restricted, async (req, res) => {
         //retrieve user id of user
         const user = await User.findByEmail(decoded.email);
 
+        // retrieve renter id of user
+        const renter = await Renter.getRenterId(user.user_id);
+
     } catch (err) {
         // send failure response
         return res.status(500).json({ message: `Server Error: ${err.message}` });
