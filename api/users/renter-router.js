@@ -39,6 +39,9 @@ router.post('/renter-total-rented', restricted, async (req, res) => {
         // decode token
         const decoded = jwtDecode(req.headers.authorization);
 
+        //retrieve user id of user
+        const user = await User.findByEmail(decoded.email);
+
     } catch (err) {
         // send failure response
         return res.status(500).json({ message: `Server Error: ${err.message}` });
