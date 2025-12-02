@@ -45,7 +45,7 @@ async function addUser(user) {
 async function addRenter(user_id) {
     const addRenter = await db("Renter")
         .returning(['renter_id', 'user_id'])
-        .insert(user_id)
+        .insert({ user_id: user_id })
     return addRenter
 }
 
@@ -56,7 +56,7 @@ async function addRenter(user_id) {
 async function addOwner(user_id) {
     const addOwner = await db("Owner")
         .returning(['owner_id', 'user_id'])
-        .insert(user_id)
+        .insert({ user_id: user_id })
     return addOwner
 
 
