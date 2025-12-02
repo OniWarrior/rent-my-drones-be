@@ -36,6 +36,8 @@ router.get('/available', async (req, res) => {
  */
 router.post('/renter-total-rented', restricted, async (req, res) => {
     try {
+        // decode token
+        const decoded = jwtDecode(req.headers.authorization);
 
     } catch (err) {
         // send failure response
