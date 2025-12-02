@@ -34,22 +34,53 @@ async function findByEmail(email) {
  */
 async function addUser(user) {
     const addUser = await db('User')
-        .returning(['email', 'password'])
+        .returning(['user_id', 'email', 'password'])
         .insert(user)
     return addUser
 }
-
-async function findById(id) {
-    const account = await db('User')
-        .returning(['user_id', 'username', 'password'])
-        .where('user_id', id)
-        .first()
-    return account
+/*
+ * addRenter: Add renter to db
+ * @user_id: Parameter of user that will be added to db
+ * */
+async function addRenter(user_id) {
+    const addRenter = await db("Renter")
+        .returning(['renter_id', 'user_id'])
+        .insert({ user_id: user_id })
+    return addRenter
 }
 
+/*
+ * addOwner: Add owner to db
+ * @user_id: Parameter of user that will be added to db
+ * */
+async function addOwner(user_id) {
+    const addOwner = await db("Owner")
+        .returning(['owner_id', 'user_id'])
+        .insert({ user_id: user_id })
+    return addOwner
+
+
+}
+
+/*
+ * findOwnerById: Find if there's an owner using the user id of user
+ * @user_id     : Parameter that will be used to find the owner
+ */
+async function findOwnerById(user_id) {
+    const foundOwner = await db("Owner")
+        .returning(['owner_id', 'user_id'])
+        .where('user_id', user_id)
+        .first()
+    return foundOwner
+}
+
+
+
 module.exports = {
-    findById,
+    addRenter,
+    addOwner,
     addUser,
+    findOwnerById,
     findByEmail,
     checkIdentityByEmail
 }
