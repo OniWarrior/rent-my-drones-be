@@ -48,6 +48,13 @@ router.post('/renter-total-rented', restricted, async (req, res) => {
         // retrieve the max count of drones rented by user
         const rented = await Renter.getTotalNumRentedDrones(renter.renter_id);
 
+        // check if all db ops successful
+        if (user && renter && rented) {
+            // send success response
+            return res.status(200).json({ rented: rented })
+
+        }
+
     } catch (err) {
         // send failure response
         return res.status(500).json({ message: `Server Error: ${err.message}` });
