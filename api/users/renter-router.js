@@ -34,7 +34,7 @@ router.get('/available', async (req, res) => {
  * /renter-total-rented: Endpoint that calculates the total number of drones
  *                     : rented by renter
  */
-router.post('/renter-total-rented', restricted, async (req, res) => {
+router.get('/renter-total-rented', restricted, async (req, res) => {
     try {
         // decode token
         const decoded = jwtDecode(req.headers.authorization);
