@@ -48,6 +48,14 @@ async function addReturn(returnRecord) {
 
 }
 
+/*
+ * getTotalNumRentedDrones: get the total number of rented drones of the renter
+ * @renter_id: parameter used to find all drones of renter, then get the total number
+ */
+async function getTotalNumRentedDrones(renter_id) {
+
+}
+
 module.exports = {
     getRenterId,
     getOwnerId,
