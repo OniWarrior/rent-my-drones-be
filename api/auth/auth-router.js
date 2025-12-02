@@ -22,10 +22,18 @@ router.post('/signup', checkForMissingName, checkForMissingEmailPassword, checkE
         const hash = bcrypt.hashSync(user.password, rounds);
         user.password = hash;
 
-        // add user to db
-        const addedUser = await User.addUser(user);
+        // obj for user record
+        const userRecord = {
+            email: user.email,
+            password: user.password,
+            first_name: user.first_name,
+            last_name: user.last_name
+        }
 
-        // switch cases - and roles that will be sent back in success response
+        // add user to db
+        const addedUser = await User.addUser(userRecord);
+
+        // if cases - roles
         const RENTER = "Renter";
         const OWNER = "Owner"
 
@@ -33,16 +41,24 @@ router.post('/signup', checkForMissingName, checkForMissingEmailPassword, checkE
         let addedOwner;
 
         // look at user type
-        switch (user.user_type) {
-            case RENTER: addedRenter = await User.addRenter(addedUser.user_id); break;
-            case OWNER: addedOwner = await User.addOwner(addedUser.user_id); break;
-            default:
-                return res.status(401).json({ message: "Missing or incorrect user type." });
+        if (user.user_type === RENTER) {
+            addedRenter = await User.addRenter(addedUser[0].user_id);
+
+        }
+        else if (user.user_type === OWNER) {
+            addedOwner = await User.addOwner(addedUser[0].user_id);
+
         }
 
+
+
         // check if db op succeeded
-        if (addedUser && (addedRenter || addedOwner)) {
+        if (addedUser && addedRenter) {
             return res.status(201).json({ addedUser: addedUser });
+        }
+        else if (addedUser && addedOwner) {
+            return res.status(201).json({ addedUser: addedUser });
+
         }
     } catch (err) {
         // send internal error failure response.
@@ -100,6 +116,7 @@ router.post('/login', checkForMissingEmailPassword, checkEmailExists, async (req
                         message: `welcome back ${user.email}`,
                         role: "Owner",
                         token
+
                     });
 
             }
