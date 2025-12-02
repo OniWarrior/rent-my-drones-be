@@ -53,11 +53,16 @@ async function addReturn(returnRecord) {
  * @renter_id: parameter used to find all drones of renter, then get the total number
  */
 async function getTotalNumRentedDrones(renter_id) {
+    const maxDrones = await db("Drone")
+        .where('renter_id', renter_id)
+        .count()
+    return maxDrones
 
 }
 
 module.exports = {
     getRenterId,
+    getTotalNumRentedDrones,
     getOwnerId,
     addOrder,
     addReturn
