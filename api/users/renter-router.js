@@ -38,7 +38,8 @@ router.post('/renter-total-rented', restricted, async (req, res) => {
     try {
 
     } catch (err) {
-
+        // send failure response
+        return res.status(500).json({ message: `Server Error: ${err.message}` });
     }
 
 })
