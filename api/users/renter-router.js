@@ -31,6 +31,14 @@ router.get('/available', async (req, res) => {
 })
 
 /*
+ * /renter-total-rented: Endpoint that calculates the total number of drones
+ *                     : rented by renter
+ */
+router.post('/renter-total-rented', restricted, async (req, res) => {
+
+})
+
+/*
  * /rented: Endpoint that retrieves all the currently rented drones of the renter
  */
 router.get('/rented', restricted, async (req, res) => {
