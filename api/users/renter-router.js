@@ -35,6 +35,11 @@ router.get('/available', async (req, res) => {
  *                     : rented by renter
  */
 router.post('/renter-total-rented', restricted, async (req, res) => {
+    try {
+
+    } catch (err) {
+
+    }
 
 })
 
