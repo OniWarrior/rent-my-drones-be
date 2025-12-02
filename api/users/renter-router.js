@@ -31,6 +31,38 @@ router.get('/available', async (req, res) => {
 })
 
 /*
+ * /renter-total-rented: Endpoint that calculates the total number of drones
+ *                     : rented by renter
+ */
+router.get('/renter-total-rented', restricted, async (req, res) => {
+    try {
+        // decode token
+        const decoded = jwtDecode(req.headers.authorization);
+
+        //retrieve user id of user
+        const user = await User.findByEmail(decoded.email);
+
+        // retrieve renter id of user
+        const renter = await Renter.getRenterId(user.user_id);
+
+        // retrieve the max count of drones rented by user
+        const rented = await Renter.getTotalNumRentedDrones(renter.renter_id);
+
+        // check if all db ops successful
+        if (user && renter && rented) {
+            // send success response
+            return res.status(200).json({ rented: rented })
+
+        }
+
+    } catch (err) {
+        // send failure response
+        return res.status(500).json({ message: `Server Error: ${err.message}` });
+    }
+
+})
+
+/*
  * /rented: Endpoint that retrieves all the currently rented drones of the renter
  */
 router.get('/rented', restricted, async (req, res) => {
