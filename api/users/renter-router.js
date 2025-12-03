@@ -51,7 +51,7 @@ router.get('/renter-total-rented', restricted, async (req, res) => {
         // check if all db ops successful
         if (user && renter && rented) {
             // send success response
-            return res.status(200).json(rented)
+            return res.status(200).json(rented[0].count)
 
         }
 
