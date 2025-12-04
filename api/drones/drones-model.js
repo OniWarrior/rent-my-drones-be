@@ -21,6 +21,10 @@ async function available() {
 
 }
 
+/*
+ * rented: retrieve all rented drones by renter using renter id.
+ * @renterId: param that is used to retrieve rented drones by renter.
+ * */
 async function rented(renterId) {
     const drones = await db('Drone')
         .returning(['drone_id',
@@ -28,7 +32,7 @@ async function rented(renterId) {
             'drone_description',
             'drone_cost',
             'drone_image',
-            'drone_isRented'])
+            'owner_id'])
         .where('renter_id', renterId)
         .orderBy('drone_id')
 
