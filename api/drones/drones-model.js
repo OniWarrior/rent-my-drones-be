@@ -11,7 +11,8 @@ async function available() {
                 'drone_description',
                 'drone_cost',
                 'drone_image',
-                'owner_id'
+                'owner_id',
+                'renter_id'
             ])
         .where('drone_is_rented', 0)
         .orderBy('drone_id')
