@@ -3,10 +3,9 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 
-const { restricted } = require('../api/auth/auth-middleware');
-
 const authRouter = require('../api/auth/auth-router');
 const renterRouter = require('./users/renter-router');
+const ownerRouter = require('./users/owner-router');
 
 const server = express();
 
@@ -42,6 +41,6 @@ server.options('*', cors(corsOptions));
 server.use(cookieParser());
 
 server.use('/api/auth', authRouter);
-server.use('/api/users', renterRouter, restricted);
+server.use('/api/users', renterRouter, ownerRouter);
 
 module.exports = server
