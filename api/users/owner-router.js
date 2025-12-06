@@ -145,6 +145,11 @@ router.post('/add-drone', restricted, async (req, res) => {
             renter_id: renter_id
         }
 
+        // add the drone record to the database
+        const addedDrone = await Owner.addDrone(drone_record);
+
+
+
 
     } catch (err) {
         // internal server error - failure response
