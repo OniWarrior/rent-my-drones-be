@@ -110,14 +110,17 @@ router.put('/available/:drone_id', restricted, async (req, res) => {
         // retrieve user id
         const user = await User.findByEmail(decode.email);
 
+
         // retrieve renter id
         const renter = await Renter.getRenterId(user.user_id);
 
         // rent a drone for user
         const rent = await Drone.rentItem(drone_id, renter.renter_id);
 
+
         // retrieve owner id of the owner of the drone.
         const owner = await Renter.getOwnerId(drone_id);
+
 
         // retrieve date of insertion- today's date
         const date = new Date();
@@ -136,7 +139,7 @@ router.put('/available/:drone_id', restricted, async (req, res) => {
         // check if db op succeeded
         if (user && renter && rent && addOrder) {
             // send success response
-            return res.status(200).json({ rent: rent });
+            return res.status(200).json({ message: `Drone successfully rented!` });
         }
 
     } catch (err) {
