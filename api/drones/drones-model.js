@@ -71,8 +71,8 @@ async function returnItem(drone_id) {
 
     const drone = await db('Drone')
         .update({
-            drone_isRented: false,
-            renter_id: 0
+            drone_is_rented: false,
+            renter_id: null
         })
         .where('drone_id', drone_id)
         .returning(['drone_id',
