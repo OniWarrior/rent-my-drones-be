@@ -128,6 +128,9 @@ router.post('/add-drone', restricted, async (req, res) => {
         // find the owner id of the user
         const owner = await User.findOwnerById(user.user_id);
 
+        // is rented temp variable
+        const drone_is_rented = false;
+
 
     } catch (err) {
         // internal server error - failure response
