@@ -193,7 +193,7 @@ router.put('/rented/:drone_id', restricted, async (req, res) => {
         // check if db op is successful
         if (user && renter && returnItem && owner && addReturn) {
             //send success response
-            return res.status(200).json({ returnItem: returnItem });
+            return res.status(200).json({ message: "Drone successfully returned!" });
         }
 
 
