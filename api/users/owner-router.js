@@ -26,7 +26,8 @@ router.get('/available-drones', restricted, async (req, res) => {
         // get the owner id
         const owner = await User.findOwnerById(user.user_id);
 
-
+        // get the drones available
+        const drones = await Owner.getOwnerAvailableDrones(owner.owner_id);
 
 
 
