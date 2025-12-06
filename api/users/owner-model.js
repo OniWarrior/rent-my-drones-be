@@ -69,7 +69,7 @@ const getOwnerDrones = async (owner_id) => {
  * addDrone: Adds a new drone to the Drone table. For owner user type
  * */
 const addDrone = async (drone) => {
-    const drone = await db('Drone')
+    const addedDrone = await db('Drone')
         .select('drone_id',
             'drone_name',
             'drone_description',
@@ -78,7 +78,7 @@ const addDrone = async (drone) => {
             'renter_id'
         )
         .insert(drone)
-    return drone
+    return addedDrone
 }
 
 
