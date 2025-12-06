@@ -110,6 +110,15 @@ router.get('/all-drones', restricted, async (req, res) => {
 router.post('/add-drone', restricted, async (req, res) => {
     try {
 
+        // destructure the req.body
+        const {
+            drone_name,
+            drone_description,
+            drone_cost,
+            drone_url,
+        } = req.body
+
+
     } catch (err) {
         // internal server error - failure response
         return res.status(500).json(`Server error: ${err.message}`);
