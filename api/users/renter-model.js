@@ -7,7 +7,7 @@ const db = require('../data/dbConfig')
  */
 async function getRenterId(userId) {
     const renterId = await db("Renter")
-        .returning(['renter_id'])
+        .select('renter_id')
         .where('user_id', userId)
         .first()
     return renterId
