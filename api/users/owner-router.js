@@ -41,4 +41,16 @@ router.get('/available-drones', restricted, async (req, res) => {
     }
 })
 
+/*
+ * /rented-drones: endpoint that retrieves all of the owner's drones that are rented out
+
+ * */
+router.get('/rented-drones', restricted, async (req, res) => {
+    try {
+
+    } catch (err) {
+
+    }
+})
+
 module.exports = router;
