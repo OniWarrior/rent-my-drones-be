@@ -14,7 +14,7 @@ async function available() {
                 'owner_id',
                 'renter_id'
             ])
-        .where('drone_is_rented', 0)
+        .where('drone_is_rented', false)
         .orderBy('drone_id')
 
     return drones
@@ -48,7 +48,7 @@ async function rented(renterId) {
 async function rentItem(drone_id, renterId) {
     const drone = await db('Drone')
         .update({
-            drone_isRented: true,
+            drone_is_rented: true,
             renter_id: renterId
         })
         .where('drone_id', drone_id)
