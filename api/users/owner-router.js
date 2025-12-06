@@ -115,8 +115,15 @@ router.post('/add-drone', restricted, async (req, res) => {
             drone_name,
             drone_description,
             drone_cost,
-            drone_url,
+            drone_url
         } = req.body
+
+
+        // decode the token
+        const decoded = jwtDecode(req.headers.authorization);
+
+        // find the user id of owner
+        const user = await User.findByEmail(decoded.email);
 
 
     } catch (err) {
