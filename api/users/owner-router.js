@@ -148,7 +148,11 @@ router.post('/add-drone', restricted, async (req, res) => {
         // add the drone record to the database
         const addedDrone = await Owner.addDrone(drone_record);
 
-
+        // check if the database operations succeeded
+        if (user && owner && addedDrone) {
+            // success response
+            return res.status(201).json(`Drone successfully added!`);
+        }
 
 
     } catch (err) {
