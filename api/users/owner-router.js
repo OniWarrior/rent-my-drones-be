@@ -49,6 +49,8 @@ router.get('/rented-drones', restricted, async (req, res) => {
     try {
 
     } catch (err) {
+        // internal server error - failure response
+        return res.status(500).json(`Server error: ${err.message}`);
 
     }
 })
