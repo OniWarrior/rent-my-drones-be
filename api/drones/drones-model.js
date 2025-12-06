@@ -11,15 +11,20 @@ async function available() {
                 'drone_description',
                 'drone_cost',
                 'drone_image',
-                'owner_id'
+                'owner_id',
+                'renter_id'
             ])
-        .where('drone_is_rented', 0)
+        .where('drone_is_rented', false)
         .orderBy('drone_id')
 
     return drones
 
 }
 
+/*
+ * rented: retrieve all rented drones by renter using renter id.
+ * @renterId: param that is used to retrieve rented drones by renter.
+ * */
 async function rented(renterId) {
     const drones = await db('Drone')
         .returning(['drone_id',
@@ -27,7 +32,7 @@ async function rented(renterId) {
             'drone_description',
             'drone_cost',
             'drone_image',
-            'drone_isRented'])
+            'owner_id'])
         .where('renter_id', renterId)
         .orderBy('drone_id')
 
@@ -43,7 +48,7 @@ async function rented(renterId) {
 async function rentItem(drone_id, renterId) {
     const drone = await db('Drone')
         .update({
-            drone_isRented: true,
+            drone_is_rented: true,
             renter_id: renterId
         })
         .where('drone_id', drone_id)
@@ -66,8 +71,8 @@ async function returnItem(drone_id) {
 
     const drone = await db('Drone')
         .update({
-            drone_isRented: false,
-            renter_id: 0
+            drone_is_rented: false,
+            renter_id: null
         })
         .where('drone_id', drone_id)
         .returning(['drone_id',
