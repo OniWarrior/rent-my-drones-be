@@ -1,4 +1,5 @@
 import { restricted } from '../auth/auth-middleware';
+const { default: jwtDecode } = require('jwt-decode');
 
 /*
  * Author: Stephen Aranda
@@ -9,6 +10,10 @@ const router = require('express').Router();
 
 router.get('/available-drones', restricted, async (req, res) => {
     try {
+
+        // decode the token
+        const decoded = jwtDecode(req.headers.authorization);
+
 
     } catch (err) {
 
