@@ -131,6 +131,9 @@ router.post('/add-drone', restricted, async (req, res) => {
         // is rented temp variable
         const drone_is_rented = false;
 
+        // renter id temp var
+        const renter_id = null;
+
 
     } catch (err) {
         // internal server error - failure response
