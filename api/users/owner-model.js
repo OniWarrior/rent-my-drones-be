@@ -46,8 +46,28 @@ const getOwnerRentedDrones = async (owner_id) => {
 
 }
 
+/*
+ * getOwnerDrones: retrieve all of the owner's drones whether they're rented out or not
+ * @owner_id : param that helps to retrieve owner's drones
+ *  */
+const getOwnerDrones = async (owner_id) => {
+    const drones = await db('Drone')
+        .select('drone_id',
+            'drone_name',
+            'drone_description',
+            'drone_cost',
+            'drone_image',
+            'renter_id'
+        )
+        .where('owner_id', owner_id)
+
+    return drones
+
+}
+
 
 module.exports = {
     getOwnerAvailableDrones,
-    getOwnerRentedDrones
+    getOwnerRentedDrones,
+    getOwnerDrones
 }
