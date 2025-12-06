@@ -20,6 +20,14 @@ router.get('/available-drones', restricted, async (req, res) => {
         // decode the token
         const decoded = jwtDecode(req.headers.authorization);
 
+        // get the user id
+        const user = await User.findByEmail(decoded.email);
+
+        // get the owner id
+        const owner = await User.findOwnerById(user.user_id);
+
+
+
 
 
 
