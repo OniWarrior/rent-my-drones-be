@@ -34,13 +34,9 @@ router.get('/available-drones', restricted, async (req, res) => {
             // successful - send drones with success reponse.
             return res.status(200).json(drones);
         }
-
-
-
-
-
-
     } catch (err) {
+        // internal server error - failure response
+        return res.status(500).json(`Server error: ${err.message}`);
 
     }
 })
