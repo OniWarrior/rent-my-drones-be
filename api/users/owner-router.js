@@ -134,6 +134,17 @@ router.post('/add-drone', restricted, async (req, res) => {
         // renter id temp var
         const renter_id = null;
 
+        // create obj for the drone record
+        const drone_record = {
+            drone_name: drone_name,
+            drone_description: drone_description,
+            drone_cost: drone_cost,
+            drone_image: drone_url,
+            owner_id: owner.owner_id,
+            drone_is_rented: drone_is_rented,
+            renter_id: renter_id
+        }
+
 
     } catch (err) {
         // internal server error - failure response
