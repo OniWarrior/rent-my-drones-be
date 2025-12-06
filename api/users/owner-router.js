@@ -48,6 +48,18 @@ router.get('/available-drones', restricted, async (req, res) => {
 router.get('/rented-drones', restricted, async (req, res) => {
     try {
 
+        // decode the token
+        const decoded = jwtDecode(req.headers.authorization);
+
+        // get the user id
+        const user = await User.findByEmail(decoded.email);
+
+        // get the owner id
+        const owner = await User.findOwnerById(user.user_id);
+
+        // get the drones available
+        const drones = await Owner.getOwnerRentedDrones(owner.owner_id);
+
     } catch (err) {
         // internal server error - failure response
         return res.status(500).json(`Server error: ${err.message}`);
