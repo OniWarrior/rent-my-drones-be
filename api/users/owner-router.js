@@ -103,4 +103,16 @@ router.get('/all-drones', restricted, async (req, res) => {
     }
 })
 
+
+/*
+ * /add-drone: Endpoint that allows the owner user type to add a drone
+ * */
+router.post('/add-drone', restricted, async (req, res) => {
+    try {
+
+    } catch {
+
+    }
+})
+
 module.exports = router;
