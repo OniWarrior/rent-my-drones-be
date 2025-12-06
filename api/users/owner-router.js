@@ -6,7 +6,7 @@
  * Desc  : endpoints that will be utilized by the owner user type.
  * */
 const router = require('express').Router();
-import { restricted } from '../auth/auth-middleware';
+const { restricted } = require('../auth/auth-middleware');
 const { default: jwtDecode } = require('jwt-decode');
 const Owner = require('./owner-model');
 const User = require('./user-model');
@@ -41,4 +41,4 @@ router.get('/available-drones', restricted, async (req, res) => {
     }
 })
 
-export default router;
+module.exports = router;
