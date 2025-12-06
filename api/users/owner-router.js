@@ -60,6 +60,12 @@ router.get('/rented-drones', restricted, async (req, res) => {
         // get the drones available
         const drones = await Owner.getOwnerRentedDrones(owner.owner_id);
 
+        // check if the db queries were successful
+        if (user && owner && drones) {
+            // successful - send drones with success reponse.
+            return res.status(200).json(drones);
+        }
+
     } catch (err) {
         // internal server error - failure response
         return res.status(500).json(`Server error: ${err.message}`);
