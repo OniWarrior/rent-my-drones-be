@@ -65,9 +65,26 @@ const getOwnerDrones = async (owner_id) => {
 
 }
 
+/*
+ * addDrone: Adds a new drone to the Drone table. For owner user type
+ * */
+const addDrone = async (drone) => {
+    const addedDrone = await db('Drone')
+        .select('drone_id',
+            'drone_name',
+            'drone_description',
+            'drone_cost',
+            'drone_image',
+            'renter_id'
+        )
+        .insert(drone)
+    return addedDrone
+}
+
 
 module.exports = {
     getOwnerAvailableDrones,
     getOwnerRentedDrones,
-    getOwnerDrones
+    getOwnerDrones,
+    addDrone
 }
