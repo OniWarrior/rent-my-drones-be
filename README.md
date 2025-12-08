@@ -169,14 +169,14 @@ npm install
 
 Create a .env file in the backend root:
 
-PORT=5000
-DATABASE_URL=your-postgres-connection-string
-JWT_SECRET=your-jwt-secret
-NODE_ENV=development
+PORT=5000<br>
+DATABASE_URL=your-postgres-connection-string<br>
+JWT_SECRET=your-jwt-secret<br>
+NODE_ENV=development<br>
 
 ### 3️⃣ Database Migrations & Seeds (if configured)
-npx knex migrate:latest
-npx knex seed:run
+npx knex migrate:latest<br>
+npx knex seed:run<br>
 
 ### 4️⃣ Start the Server
 
