@@ -53,53 +53,53 @@ There are two user types:
 ### `User`
 Stores login and identity information.
 
-
-user_id       PK
-email
-password      (hashed with bcrypt)
-first_name
-last_name
+<br>
+user_id       PK <br>
+email   <br>
+password      (hashed with bcrypt) <br>
+first_name <br>
+last_name  <br>
 
 ### `Renter`
-Links a user account to a renter profile.
-renter_id     PK
-user_id       FK → users.user_id
+Links a user account to a renter profile. <br>
+renter_id     PK <br>
+user_id       FK → users.user_id <br>
 
 ### `Owner`
-Links a user account to an owner profile.
+Links a user account to an owner profile. <br>
 
-owner_id      PK
-user_id       FK → users.user_id
+owner_id      PK  <br>
+user_id       FK → users.user_id  <br>
 
 ### `Drone`
-Represents drones that can be rented that belong to owners
+Represents drones that can be rented that belong to owners <br>
 
-drone_id        PK
-drone_name
-drone_description
-drone_cost
-drone_image      (URL string, not a stored image)
-owner_id         FK → owners.owner_id
-drone_is_rented  (boolean flag)
-renter_id        FK → renters.renter_id (nullable)
+drone_id        PK <br>
+drone_name   <br>
+drone_description <br>
+drone_cost     <br>
+drone_image      (URL string, not a stored image)  <br>
+owner_id         FK → owners.owner_id            <br>
+drone_is_rented  (boolean flag)          <br>
+renter_id        FK → renters.renter_id (nullable) <br>
 
 ### `Return`
-Records when a drone is returned
+Records when a drone is returned <br>
 
-return_id     PK
-renter_id     FK → renters.renter_id
-owner_id      FK → owners.owner_id
-drone_id      FK → drones.drone_id
-return_date   (date the drone was returned)
+return_id     PK <br>
+renter_id     FK → renters.renter_id  <br>
+owner_id      FK → owners.owner_id   <br>
+drone_id      FK → drones.drone_id   <br>
+return_date   (date the drone was returned) <br>
 
 ### `Order`
-Records when a drone is rented.
+Records when a drone is rented. <br>
 
-order_id      PK
-renter_id     FK → renters.renter_id
-owner_id      FK → owners.owner_id
-drone_id      FK → drones.drone_id
-order_date    (date the drone was rented)
+order_id      PK <br>
+renter_id     FK → renters.renter_id  <br>
+owner_id      FK → owners.owner_id    <br>
+drone_id      FK → drones.drone_id    <br>
+order_date    (date the drone was rented) <br>
 
 ---
 
