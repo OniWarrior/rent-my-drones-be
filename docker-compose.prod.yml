@@ -1,0 +1,11 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rent-my-drones-be-prod
+    ports:
+      - "5000:5000" # host:container
+    env_file:
+      - .env
+    restart: unless-stopped
