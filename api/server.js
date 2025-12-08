@@ -37,7 +37,6 @@ const corsOptions = {
 server.use(express.json());
 server.use(helmet());
 server.use(cors(corsOptions));
-server.options('*', cors(corsOptions));
 server.use(cookieParser());
 
 server.use('/api/auth', authRouter);
