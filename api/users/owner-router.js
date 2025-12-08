@@ -7,7 +7,7 @@
  * */
 const router = require('express').Router();
 const { restricted } = require('../auth/auth-middleware');
-const { default: jwtDecode } = require('jwt-decode');
+const { jwtDecode } = require('jwt-decode');
 const Owner = require('./owner-model');
 const User = require('./user-model');
 
