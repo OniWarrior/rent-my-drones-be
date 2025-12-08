@@ -21,4 +21,4 @@ ENV NODE_ENV=production
 EXPOSE 5000
 
 # start the server
-CMD [ "npm","server" ]
+CMD ["npm", "start"]
