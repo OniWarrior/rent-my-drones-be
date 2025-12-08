@@ -54,11 +54,11 @@ There are two user types:
 Stores login and identity information.
 
 <br>
-user_id       PK <br>
-email   <br>
-password      (hashed with bcrypt) <br>
-first_name <br>
-last_name  <br>
+user_id       PK<br>
+email<br>
+password      (hashed with bcrypt)<br>
+first_name<br>
+last_name<br>
 
 ### `Renter`
 Links a user account to a renter profile. <br>
