@@ -6,16 +6,16 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "migrate:prod": "knex migrate:latest",
-    "seed:prod": "knex seed:run",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "mup": "knex migrate:up",
     "mdown": "knex migrate:down",
     "seed": "knex seed:run",
+    "loginh": "heroku login",
+    "dockerh": "heroku container:login",
     "resetdb": "npm run rollback && npm run migrate && npm run seed",
-    "migrateh": "heroku run npm run migrate:prod -a rent-my-drones-be",
-    "seedh": "heroku run npm run seed:prod -a rent-my-drones-be",
+    "migrateh": "npx knex migrate:latest NODE_ENV=production",
+    "seedh": "npx knex seed:run NODE_ENV=production",
     "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand"
   },
   "jest": {
