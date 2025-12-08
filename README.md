@@ -121,7 +121,7 @@ These endpoints are used when a user is acting as a Renter.
 | Method | Endpoint                 | Description                      |
 |--------|---------------------------|----------------------------------|
 | GET    | `/api/users/available`                 | Retrieves all drones currently available for rent                    |
-| GET    | `/api/users/renter-total-rented`       | Retrieves portfolio                                                  |
+| GET    | `/api/users/renter-total-rented`       | Endpoint that calculates the total number of drones rented by renter |
 | GET    | `/api/users/rented`                    | Retrieves all drones currently rented by the authenticated renter    |
 | POST   | `/api/users/available/:drone_id`       | Rents a drone for the authenticated renter using the drone ID        |
 | POST   | `/api/users/rented/:drone_id`          | Returns a rented drone for the authenticated renter                  |
@@ -224,7 +224,7 @@ The frontend application communicates with this URL for all API operations.
 ## 📬 Contact
 
 Stephen Aranda
-**Email:** aranda.stephen88@gmail.com
+**Email:** aranda.stephen88@gmail.com<br>
 **LinkedIn:** https://www.linkedin.com/in/stephen-aranda-9b9974205
 
 **GitHub:** https://github.com/OniWarrior
