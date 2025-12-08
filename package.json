@@ -6,17 +6,16 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
+    "migrate:prod": "knex migrate:latest",
+    "seed:prod": "knex seed:run",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "mup": "knex migrate:up",
     "mdown": "knex migrate:down",
     "seed": "knex seed:run",
     "resetdb": "npm run rollback && npm run migrate && npm run seed",
-    "migrateh": "heroku run knex migrate:latest -a rent-my-drones-be",
-    "rollbackh": "heroku run knex migrate:rollback -a rent-my-drones-be",
-    "databaseh": "heroku pg:psql -a rent-my-drones-be",
-    "seedh": "heroku run knex seed:run -a rent-my-drones-be",
-    "deploy": "git push heroku main",
+    "migrateh": "heroku run npm run migrate:prod -a rent-my-drones-be",
+    "seedh": "heroku run npm run seed:prod -a rent-my-drones-be",
     "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand"
   },
   "jest": {
@@ -38,24 +37,24 @@
   },
   "homepage": "https://github.com/OniWarrior/rent-my-drones-be#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "helmet": "^4.6.0",
-    "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^3.1.2",
-    "knex": "^0.95.11",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "jwt-decode": "^4.0.0",
+    "knex": "^3.1.0",
     "knex-cleaner": "^1.3.1",
-    "pg": "^8.7.1"
+    "pg": "^8.16.3"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.2",
-    "cross-env": "^7.0.3",
-    "jest": "^27.3.1",
-    "nodemon": "^2.0.14",
-    "supertest": "^6.1.6"
+    "@types/jest": "^30.0.0",
+    "cross-env": "^10.1.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.11",
+    "supertest": "^7.1.4"
   }
 }
