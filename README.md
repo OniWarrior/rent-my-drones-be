@@ -228,3 +228,18 @@ Stephen Aranda
 **LinkedIn:** https://www.linkedin.com/in/stephen-aranda-9b9974205
 
 **GitHub:** https://github.com/OniWarrior
+
+---
+
+### Bitcoin Transaction system README's
+
+project-frontend/
+   rent-my-drones-fe/README.md                        <-- Full project overview
+<br>
+**Link:** https://github.com/OniWarrior/rent-my-drones-fe
+
+project-backend/
+   rent-my-drones-be/README.md  <-- Backend-only details
+<br>
+**Link:** https://github.com/OniWarrior/rent-my-drones-be
+
